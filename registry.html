@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E + G · Registry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --cocoa:#5C3520;
+    --cocoa-deep:#4A2A18;
+    --cream:#F2E8D7;
+    --cream-card:#F6EFE2;
+    --cream-soft:#EDE0CB;
+    --polaroid:#FBF6EB;
+    --ink:#3D2817;
+    --ink-soft:#7A5E47;
+    --rule:#C9B89A;
+    --sage:#6E7548;
+    --sage-deep:#5A6038;
+    --mauve:#A88283;
+    --sprig:#C9A57D;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Montserrat',ui-sans-serif,system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Cormorant Garamond',serif}
+  .script{font-family:'Italianno',cursive}
+
+  /* ─── nav ─── */
+  .nav{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:22px 56px;background:var(--cream);
+    font-size:11px;letter-spacing:.22em;font-weight:400;
+  }
+  .nav-l, .nav-r{display:flex;align-items:center;gap:42px}
+  .nav-r{justify-content:flex-end}
+  .nav a{color:var(--ink);text-decoration:none;text-transform:uppercase}
+  .nav a:hover{color:var(--cocoa)}
+  .monogram{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:26px;letter-spacing:.08em;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .monogram .dot{width:4px;height:4px;border-radius:50%;background:var(--ink)}
+  .nav-rsvp{
+    background:var(--cocoa);color:#F2E8D7 !important;
+    padding:10px 22px;letter-spacing:.28em;
+    border-radius:2px;font-size:10.5px;
+  }
+  .nav-rsvp:hover{background:var(--cocoa-deep);color:#F2E8D7 !important}
+
+  /* ─── hero ─── */
+  .hero{
+    position:relative;height:360px;overflow:hidden;
+    background:var(--cocoa);
+    color:#F2E8D7;
+  }
+  .hero-img{
+    position:absolute;inset:0;
+    background-image:
+      radial-gradient(ellipse at 72% 32%, rgba(255,180,120,.5), transparent 45%),
+      radial-gradient(ellipse at 88% 62%, rgba(255,200,140,.32), transparent 38%),
+      linear-gradient(180deg,#5a4530 0%,#3a2818 60%,#1e1410 100%);
+  }
+  .hero-img::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg,var(--cocoa-deep) 0%,rgba(74,42,24,.95) 22%,rgba(74,42,24,.6) 38%,rgba(74,42,24,.15) 58%,transparent 72%);
+  }
+  .hero-photo-hint{
+    position:absolute;right:36px;bottom:18px;
+    font-family:ui-monospace,Menlo,monospace;font-size:10px;
+    color:rgba(242,232,215,.5);letter-spacing:.06em;z-index:3;
+  }
+  .hero-vine{
+    position:absolute;left:30px;top:60px;
+    color:rgba(242,232,215,.45);pointer-events:none;z-index:2;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:560px;margin:0 auto 0 0;
+    padding:62px 0 0 120px;text-align:center;
+  }
+  .hero-eyebrow{
+    font-size:11px;letter-spacing:.42em;font-weight:400;
+    opacity:.92;margin-bottom:14px;
+  }
+  .hero-eyebrow-dia{
+    width:5px;height:5px;background:rgba(242,232,215,.85);
+    transform:rotate(45deg);display:inline-block;margin:6px auto 14px;
+  }
+  .hero-title{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;font-size:76px;line-height:1;
+    letter-spacing:.08em;margin:0 0 14px;
+  }
+  .hero-rule{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin:4px 0 18px;
+  }
+  .hero-rule::before, .hero-rule::after{
+    content:'';height:1px;width:60px;background:rgba(242,232,215,.55);
+  }
+  .hero-rule .dia{
+    width:6px;height:6px;background:rgba(242,232,215,.85);
+    transform:rotate(45deg);
+  }
+  .hero-msg{
+    font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;
+    margin:0;opacity:.92;line-height:1.55;font-style:italic;
+  }
+  .hero-curve{
+    position:absolute;bottom:-1px;left:0;right:0;height:55px;
+    background:var(--cream);
+    clip-path:ellipse(80% 100% at 50% 100%);
+  }
+
+  /* ─── intro script ─── */
+  .intro{
+    background:var(--cream);
+    padding:22px 56px 6px;
+    text-align:center;
+  }
+  .intro-script{
+    font-family:'Italianno',cursive;font-size:46px;
+    color:var(--cocoa);line-height:1;margin:8px 0 6px;
+  }
+  .intro-rule{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    color:var(--mauve);margin-bottom:6px;
+  }
+  .intro-rule::before, .intro-rule::after{
+    content:'';height:1px;width:48px;background:var(--rule);
+  }
+  .intro-rule .heart{font-size:14px;color:var(--mauve)}
+
+  /* ─── note from the couple ─── */
+  .note{
+    background:var(--cream);
+    padding:18px 56px 12px;
+    display:flex;justify-content:center;
+  }
+  .note-inner{
+    max-width:660px;text-align:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;line-height:1.7;color:var(--ink);
+    font-weight:300;
+  }
+  .note-inner em{font-style:italic;color:var(--cocoa)}
+  .note-sig{
+    display:block;margin-top:18px;
+    font-family:'Italianno',cursive;font-size:36px;
+    color:var(--cocoa);line-height:1;
+  }
+  .note-sprig{
+    display:flex;justify-content:center;margin-top:12px;color:var(--sprig);
+  }
+
+  /* ─── registry embed section ─── */
+  .reg-section{
+    background:var(--cream);
+    padding:36px 56px 56px;
+  }
+  .reg-wrap{
+    max-width:1100px;margin:0 auto;
+  }
+  .reg-head{
+    text-align:center;margin-bottom:24px;
+  }
+  .reg-eyebrow{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  .reg-eyebrow .dia{
+    width:5px;height:5px;background:var(--cocoa);transform:rotate(45deg);
+  }
+  .reg-title{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-weight:400;font-size:38px;color:var(--ink);
+    line-height:1.1;margin:6px 0 8px;
+  }
+  .reg-sub{
+    font-family:'Cormorant Garamond',serif;font-size:15.5px;
+    color:var(--ink-soft);font-style:italic;line-height:1.55;
+    max-width:560px;margin:0 auto;
+  }
+
+  /* Zola embed frame */
+  .reg-frame{
+    margin-top:30px;
+    background:var(--polaroid);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:14px;
+    position:relative;
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset,
+               0 14px 28px -22px rgba(74,42,24,.35);
+  }
+  .reg-frame::before, .reg-frame::after{
+    content:'';position:absolute;width:18px;height:18px;
+    border:1px solid var(--sprig);
+  }
+  .reg-frame::before{
+    top:-1px;left:-1px;border-right:0;border-bottom:0;
+  }
+  .reg-frame::after{
+    bottom:-1px;right:-1px;border-left:0;border-top:0;
+  }
+  .reg-frame-corners-b, .reg-frame-corners-c{
+    position:absolute;width:18px;height:18px;
+    border:1px solid var(--sprig);pointer-events:none;
+  }
+  .reg-frame-corners-b{top:-1px;right:-1px;border-left:0;border-bottom:0}
+  .reg-frame-corners-c{bottom:-1px;left:-1px;border-right:0;border-top:0}
+
+  /* Zola registry embed */
+  .reg-embed{
+    min-height:520px;
+    background:var(--cream-card);
+    border-radius:3px;
+    padding:28px;
+    color:var(--ink-soft);
+  }
+  .zola-registry-embed{
+    display:block;
+    width:100%;
+    min-height:480px;
+    text-align:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:15px;
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+  .zola-fallback{
+    display:block;
+    text-align:center;
+    margin-top:14px;
+    font-family:'Montserrat',ui-sans-serif,system-ui,sans-serif;
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--cocoa);
+    text-decoration:none;
+  }
+  .reg-embed-mono{
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:10.5px;letter-spacing:.22em;
+    color:var(--ink-soft);opacity:.7;
+    margin-bottom:18px;text-transform:uppercase;
+  }
+  .reg-embed-ttl{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:30px;color:var(--ink);margin:0 0 10px;font-weight:400;
+  }
+  .reg-embed-body{
+    font-family:'Cormorant Garamond',serif;font-size:15.5px;
+    line-height:1.65;color:var(--ink-soft);font-style:italic;
+    max-width:460px;margin:0 0 22px;
+  }
+  .reg-embed-zola{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;
+    color:var(--cocoa);letter-spacing:.04em;
+    border:1px dashed var(--sprig);background:rgba(251,246,235,.7);
+    padding:6px 14px;border-radius:2px;
+    margin-bottom:22px;
+  }
+
+  /* Visit on Zola button */
+  .btn-row{
+    display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+    margin-top:6px;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--cocoa);color:#F2E8D7;
+    padding:14px 32px;border-radius:3px;border:0;cursor:pointer;
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
+    letter-spacing:.32em;text-transform:uppercase;text-decoration:none;
+    transition:background .15s,transform .1s;
+  }
+  .btn-primary:hover{background:var(--cocoa-deep)}
+  .btn-primary:active{transform:translateY(1px)}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:13px 28px;background:transparent;
+    border:1px solid var(--ink);color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;
+    letter-spacing:.32em;text-transform:uppercase;text-decoration:none;cursor:pointer;
+    transition:background .15s,color .15s;
+  }
+  .btn-ghost:hover{background:var(--ink);color:var(--cream)}
+
+  /* ─── alternative giving cards ─── */
+  .alt{
+    background:var(--cream-soft);
+    padding:54px 56px;
+  }
+  .alt-head{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin-bottom:32px;
+  }
+  .alt-head .dia{
+    width:5px;height:5px;background:var(--cocoa);transform:rotate(45deg);
+  }
+  .alt-head-ttl{
+    font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .alt-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:28px;
+    max-width:1000px;margin:0 auto;
+  }
+  .alt-card{
+    background:var(--cream-card);
+    border-radius:6px;padding:32px 32px 28px;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,
+               0 12px 24px -20px rgba(74,42,24,.3);
+  }
+  .alt-ico{
+    display:flex;justify-content:center;color:var(--cocoa);
+    margin-bottom:14px;
+  }
+  .alt-lbl{
+    font-size:11px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    text-transform:uppercase;margin-bottom:10px;
+  }
+  .alt-ttl{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:28px;font-weight:400;color:var(--ink);
+    line-height:1.15;margin:0 0 12px;
+  }
+  .alt-body{
+    font-family:'Cormorant Garamond',serif;font-size:15px;
+    line-height:1.6;color:var(--ink-soft);font-style:italic;font-weight:400;
+    margin:0 0 16px;max-width:380px;
+  }
+  .alt-address{
+    font-family:'Cormorant Garamond',serif;font-size:16px;
+    line-height:1.55;color:var(--ink);font-style:normal;font-weight:400;
+    padding:14px 18px;background:var(--polaroid);
+    border:1px solid var(--rule);border-radius:3px;
+    margin:6px 0 14px;letter-spacing:.02em;
+  }
+  .alt-sprig{
+    margin-top:auto;padding-top:14px;color:var(--sprig);
+    display:flex;justify-content:center;
+  }
+
+  /* ─── thank you band ─── */
+  .ty{
+    background:var(--cream);
+    padding:48px 56px 56px;
+    text-align:center;
+  }
+  .ty-mono{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:34px;color:var(--ink);margin-bottom:14px;
+    display:flex;justify-content:center;align-items:center;gap:14px;
+  }
+  .ty-mono .plus{font-size:24px;color:var(--cocoa)}
+  .ty-script{
+    font-family:'Italianno',cursive;font-size:52px;
+    color:var(--cocoa);line-height:1;margin:8px 0 12px;
+  }
+  .ty-body{
+    font-family:'Cormorant Garamond',serif;font-size:16px;
+    color:var(--ink);line-height:1.65;font-weight:300;
+    max-width:520px;margin:0 auto;font-style:italic;
+  }
+  .ty-sprigs{
+    display:flex;justify-content:center;align-items:center;gap:14px;
+    color:var(--sprig);margin-top:18px;
+  }
+  .ty-sprigs .dia{
+    width:5px;height:5px;background:var(--mauve);transform:rotate(45deg);
+  }
+
+  /* ─── footer ─── */
+  .ft-cocoa{
+    background:var(--cocoa-deep);color:#E9D9BD;
+    padding:34px 56px 24px;
+  }
+  .ft-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:24px;
+    max-width:1300px;margin:0 auto;
+  }
+  .ft-pill{text-align:center}
+  .ft-pill-ico{
+    display:flex;justify-content:center;margin-bottom:8px;color:#D9B98B;
+  }
+  .ft-pill-lbl{
+    font-size:10.5px;letter-spacing:.28em;font-weight:500;
+    color:#D9B98B;margin-bottom:6px;
+  }
+  .ft-pill-l1, .ft-pill-l2{
+    font-family:'Cormorant Garamond',serif;font-size:14px;
+    color:#E9D9BD;line-height:1.45;font-weight:400;
+  }
+  .ft-loc{
+    margin-top:30px;padding-top:18px;
+    display:flex;justify-content:center;align-items:center;gap:18px;
+    font-size:10.5px;letter-spacing:.42em;color:#C9A57D;
+  }
+  .ft-loc::before, .ft-loc::after{
+    content:'';height:1px;width:90px;background:#7A4A30;
+  }
+  .ft-loc .dia{width:5px;height:5px;background:#C9A57D;transform:rotate(45deg)}
+
+  /* hide sections when toggled off */
+  body[data-show-note="false"] .note{display:none}
+  body[data-show-mail="false"] .alt-card.alt-mail,
+  body[data-show-charity="false"] .alt-card.alt-charity{display:none}
+  body[data-show-mail="false"][data-show-charity="false"] .alt{display:none}
+  body[data-show-mail="false"] .alt-grid,
+  body[data-show-charity="false"] .alt-grid{grid-template-columns:minmax(380px,560px);justify-content:center}
+
+  @media (max-width:1000px){
+    .nav{padding:18px 26px;font-size:10px;letter-spacing:.18em}
+    .nav-l, .nav-r{gap:24px}
+    .alt-grid{grid-template-columns:1fr}
+    .ft-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:720px){
+    .nav{
+      grid-template-columns:1fr;
+      justify-items:center;
+      row-gap:9px;
+      padding:12px 14px 14px;
+      font-size:9px;
+      letter-spacing:.16em;
+    }
+    .nav .monogram{grid-row:1;font-size:24px}
+    .nav-l, .nav-r{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px 17px;
+    }
+    .nav-l{grid-row:2}
+    .nav-r{grid-row:3}
+    .nav a{white-space:nowrap}
+    .nav-rsvp{
+      padding:8px 15px;
+      font-size:9px;
+      letter-spacing:.2em;
+    }
+  }
+</style>
+</head>
+<body data-show-note="true" data-show-mail="false" data-show-charity="false">
+
+<!-- ───────── NAV ───────── -->
+<nav class="nav">
+  <div class="nav-l">
+    <a href="Wedding Landing.html">HOME</a>
+    <a href="our-story.html">OUR STORY</a>
+    <a href="the-day.html">THE DAY</a>
+  </div>
+  <div class="monogram"><span>E</span><span class="dot"></span><span>G</span></div>
+  <div class="nav-r">
+    <a href="share-memory.html">SHARE A MEMORY</a>
+    <a href="faq.html">FAQ</a>
+    <a href="registry.html" style="color:var(--cocoa);">REGISTRY</a>
+    <a href="rsvp.html" class="nav-rsvp">RSVP</a>
+  </div>
+</nav>
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero-img"></div>
+  <div class="hero-photo-hint">[ hero photo — barn at sunset with string lights ]</div>
+  <svg class="hero-vine" width="160" height="240" viewBox="0 0 160 240" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <path d="M40 10 Q 50 80, 35 150 Q 25 200, 60 230" stroke-linecap="round"></path>
+    <path d="M40 40 Q 60 38, 70 28" stroke-linecap="round"></path>
+    <path d="M42 70 Q 22 70, 12 60" stroke-linecap="round"></path>
+    <path d="M38 100 Q 58 100, 70 88" stroke-linecap="round"></path>
+    <path d="M36 135 Q 16 138, 8 128" stroke-linecap="round"></path>
+    <path d="M30 170 Q 52 172, 64 162" stroke-linecap="round"></path>
+    <ellipse cx="70" cy="30" rx="6" ry="3" transform="rotate(-30 70 30)"></ellipse>
+    <ellipse cx="12" cy="62" rx="6" ry="3" transform="rotate(30 12 62)"></ellipse>
+    <ellipse cx="70" cy="90" rx="6" ry="3" transform="rotate(-30 70 90)"></ellipse>
+    <ellipse cx="8" cy="130" rx="6" ry="3" transform="rotate(30 8 130)"></ellipse>
+    <ellipse cx="64" cy="164" rx="6" ry="3" transform="rotate(-30 64 164)"></ellipse>
+    <circle cx="40" cy="12" r="3"></circle>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-eyebrow">WITH GRATITUDE</div>
+    <div class="hero-eyebrow-dia"></div>
+    <h1 class="hero-title">REGISTRY</h1>
+    <div class="hero-rule"><div class="dia"></div></div>
+    <p class="hero-msg">
+      Your presence is the greatest gift,<br/>
+      but for those who have asked, we've shared<br/>
+      a few favorite things below.
+    </p>
+  </div>
+  <div class="hero-curve"></div>
+</section>
+
+<!-- ───────── INTRO ───────── -->
+<section class="intro">
+  <div class="intro-script">From our home to yours</div>
+  <div class="intro-rule"><span class="heart">♡</span></div>
+</section>
+
+<!-- ───────── NOTE FROM THE COUPLE ───────── -->
+<section class="note">
+  <div class="note-inner">
+    Above all, we are so grateful you'll be there to celebrate with us.
+    That, truly, is more than enough. For those who have kindly asked,
+    we've put together a small registry of <em>things we'll use and love</em>
+    as we settle into life together.
+    <span class="note-sig">— Emme &amp; Grayson</span>
+    <div class="note-sprig">
+      <svg width="120" height="14" viewBox="0 0 120 14" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <path d="M60 13 Q 60 4, 30 2" stroke-linecap="round"></path>
+        <path d="M60 13 Q 60 4, 90 2" stroke-linecap="round"></path>
+        <ellipse cx="44" cy="4" rx="4" ry="2" transform="rotate(-20 44 4)"></ellipse>
+        <ellipse cx="76" cy="4" rx="4" ry="2" transform="rotate(20 76 4)"></ellipse>
+        <ellipse cx="30" cy="2" rx="3" ry="1.5" transform="rotate(-30 30 2)"></ellipse>
+        <ellipse cx="90" cy="2" rx="3" ry="1.5" transform="rotate(30 90 2)"></ellipse>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── REGISTRY EMBED ───────── -->
+<section class="reg-section" id="registry">
+  <div class="reg-wrap">
+    <div class="reg-head">
+      <div class="reg-eyebrow">
+        <span class="dia"></span>
+        <span>Our Registry</span>
+        <span class="dia"></span>
+      </div>
+      <h2 class="reg-title">A few favorite things</h2>
+      <p class="reg-sub">
+        Hosted on Zola, browse, ship to us directly, or save it for later.
+        Everything updates live as items are claimed.
+      </p>
+    </div>
+
+    <div class="reg-frame">
+      <span class="reg-frame-corners-b"></span>
+      <span class="reg-frame-corners-c"></span>
+
+      <div class="reg-embed" id="zola-embed">
+        <a class="zola-registry-embed"
+           href="https://www.zola.com/registry/graysonandemme"
+           data-registry-key="graysonandemme">
+          Our Zola Wedding Registry
+        </a>
+        <a class="zola-fallback"
+           href="https://www.zola.com/registry/graysonandemme"
+           target="_blank"
+           rel="noopener">
+          Open Registry on Zola
+        </a>
+      </div>
+    </div>
+
+    <div class="btn-row" style="margin-top:26px;">
+      <a class="btn-primary" href="https://www.zola.com/registry/graysonandemme" target="_blank" rel="noopener" data-zola>
+        VISIT THE REGISTRY ON ZOLA
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M1 5 L 13 5 M 9 1 L 13 5 L 9 9" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── ALTERNATIVE GIVING ───────── -->
+<section class="alt">
+  <div class="alt-head">
+    <div class="dia"></div>
+    <div class="alt-head-ttl">Other Ways to Send Love</div>
+    <div class="dia"></div>
+  </div>
+
+  <div class="alt-grid">
+    <!-- BY MAIL -->
+    <div class="alt-card alt-mail">
+      <div class="alt-ico">
+        <svg width="28" height="22" viewBox="0 0 28 22" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="1" y="3" width="26" height="16" rx="1"></rect>
+          <path d="M1 4 L 14 13 L 27 4"></path>
+        </svg>
+      </div>
+      <div class="alt-lbl">By Mail</div>
+      <h3 class="alt-ttl">A note to our new address</h3>
+      <p class="alt-body">
+        If you'd prefer to send a card or gift the old-fashioned way,
+        we'd love to hear from you here.
+      </p>
+      <div class="alt-address">
+        Emme &amp; Grayson Delaney<br/>
+        [ Mailing Address Line 1 ]<br/>
+        [ City, State · ZIP ]
+      </div>
+      <div class="alt-sprig">
+        <svg width="80" height="12" viewBox="0 0 80 12" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M40 11 Q 40 3, 18 1" stroke-linecap="round"></path>
+          <path d="M40 11 Q 40 3, 62 1" stroke-linecap="round"></path>
+          <ellipse cx="28" cy="3" rx="3" ry="1.5" transform="rotate(-20 28 3)"></ellipse>
+          <ellipse cx="52" cy="3" rx="3" ry="1.5" transform="rotate(20 52 3)"></ellipse>
+        </svg>
+      </div>
+    </div>
+
+    <!-- CHARITABLE GIVING (off by default) -->
+    <div class="alt-card alt-charity">
+      <div class="alt-ico">
+        <svg width="28" height="26" viewBox="0 0 28 26" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M14 23 C 4 16, 1 11, 1 7 Q 1 2, 6 2 Q 10 2, 14 7 Q 18 2, 22 2 Q 27 2, 27 7 C 27 11, 24 16, 14 23 Z"></path>
+        </svg>
+      </div>
+      <div class="alt-lbl">Charitable Giving</div>
+      <h3 class="alt-ttl">In lieu of a gift</h3>
+      <p class="alt-body">
+        If you'd rather make a donation in our names, we'd be honored.
+        A few causes close to our hearts are linked on our Zola page.
+      </p>
+      <a class="btn-ghost" href="https://www.zola.com/registry/graysonandemme" target="_blank" rel="noopener" data-zola>SEE CAUSES</a>
+      <div class="alt-sprig" style="margin-top:18px;">
+        <svg width="80" height="12" viewBox="0 0 80 12" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M40 11 Q 40 3, 18 1" stroke-linecap="round"></path>
+          <path d="M40 11 Q 40 3, 62 1" stroke-linecap="round"></path>
+          <ellipse cx="28" cy="3" rx="3" ry="1.5" transform="rotate(-20 28 3)"></ellipse>
+          <ellipse cx="52" cy="3" rx="3" ry="1.5" transform="rotate(20 52 3)"></ellipse>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── THANK YOU ───────── -->
+<section class="ty">
+  <div class="ty-mono"><em>E</em><span class="plus">+</span><em>G</em></div>
+  <div class="ty-script">Thank you, truly</div>
+  <p class="ty-body">
+    We are so grateful for your love and support.
+    You've already given us more than we could ask for.
+  </p>
+  <div class="ty-sprigs">
+    <svg width="90" height="14" viewBox="0 0 90 14" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M45 13 Q 45 4, 18 2" stroke-linecap="round"></path>
+      <path d="M45 13 Q 45 4, 72 2" stroke-linecap="round"></path>
+      <ellipse cx="30" cy="4" rx="3.5" ry="1.6" transform="rotate(-20 30 4)"></ellipse>
+      <ellipse cx="60" cy="4" rx="3.5" ry="1.6" transform="rotate(20 60 4)"></ellipse>
+    </svg>
+    <div class="dia"></div>
+    <svg width="90" height="14" viewBox="0 0 90 14" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M45 13 Q 45 4, 18 2" stroke-linecap="round"></path>
+      <path d="M45 13 Q 45 4, 72 2" stroke-linecap="round"></path>
+      <ellipse cx="30" cy="4" rx="3.5" ry="1.6" transform="rotate(-20 30 4)"></ellipse>
+      <ellipse cx="60" cy="4" rx="3.5" ry="1.6" transform="rotate(20 60 4)"></ellipse>
+    </svg>
+  </div>
+</section>
+
+<!-- ───────── FOOTER ───────── -->
+<footer class="ft-cocoa">
+  <div class="ft-grid">
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M8 4 Q 11 1, 14 4 L 14 8 Q 18 9, 19 14 L 21 25 L 1 25 L 3 14 Q 4 9, 8 8 Z"></path>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">DRESS CODE</div>
+      <div class="ft-pill-l1">Garden Formal</div>
+      <div class="ft-pill-l2">Boots Welcome</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="24" height="22" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M12 20 Q 4 14, 4 8 Q 4 3, 9 3 Q 12 3, 12 7 Q 12 3, 15 3 Q 20 3, 20 8 Q 20 14, 12 20 Z"></path>
+          <path d="M12 20 L 12 4"></path>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">CEREMONY</div>
+      <div class="ft-pill-l1">Outdoors</div>
+      <div class="ft-pill-l2">Weather Permitting</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M3 13 L 5 6 Q 6 4, 8 4 L 20 4 Q 22 4, 23 6 L 25 13 L 25 17 L 22 17 L 22 15 L 6 15 L 6 17 L 3 17 Z"></path>
+          <circle cx="8" cy="15" r="2"></circle><circle cx="20" cy="15" r="2"></circle>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">PARKING</div>
+      <div class="ft-pill-l1">On-site parking</div>
+      <div class="ft-pill-l2">
+</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M6 2 L 6 9 Q 6 13, 11 13 Q 16 13, 16 9 L 16 2"></path>
+          <path d="M11 13 L 11 20"></path><path d="M7 20 L 15 20"></path>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">RECEPTION</div>
+      <div class="ft-pill-l1">Reception in the Barn</div>
+      <div class="ft-pill-l2">Dinner &amp; Dancing</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2 L 12 5 M12 19 L 12 22 M2 12 L 5 12 M19 12 L 22 12
+                   M4.5 4.5 L 6.5 6.5 M17.5 17.5 L 19.5 19.5
+                   M4.5 19.5 L 6.5 17.5 M17.5 6.5 L 19.5 4.5"></path>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">WEATHER NOTE</div>
+      <div class="ft-pill-l1">October in Georgia</div>
+      <div class="ft-pill-l2">can be cool in the evening</div>
+    </div>
+  </div>
+  <div class="ft-loc">
+    <span>FAYETTEVILLE</span>
+    <div class="dia"></div>
+    <span>GEORGIA</span>
+  </div>
+</footer>
+
+<!-- ───────── TWEAKS ───────── -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script>
+  !function(e,t,n){
+    var s,a=e.getElementsByTagName(t)[0];
+    e.getElementById(n)||(s=e.createElement(t),s.id=n,s.async=!0,
+    s.src="https://widget.zola.com/js/widget.js",
+    a.parentNode.insertBefore(s,a));
+  }(document,"script","zola-wjs");
+</script>
+<script type="text/babel">
+  const REG_TWEAKS = /*EDITMODE-BEGIN*/{
+    "showNote": true,
+    "showMail": false,
+    "showCharity": false,
+    "heroEyebrow": "WITH GRATITUDE",
+    "heroMsg": "Your presence is the greatest gift, but for those who have asked, we've shared a few favorite things below.",
+    "scriptLine": "From our home to yours",
+    "regTitle": "A few favorite things",
+    "zolaUrl": "https:\/\/www.zola.com\/registry\/graysonandemme"
+  }/*EDITMODE-END*/;
+
+  function App() {
+    const [t, setTweak] = useTweaks(REG_TWEAKS);
+
+    React.useEffect(() => {
+      document.body.dataset.showNote    = String(!!t.showNote);
+      document.body.dataset.showMail    = String(!!t.showMail);
+      document.body.dataset.showCharity = String(!!t.showCharity);
+
+      // bind copy into static DOM
+      const eb = document.querySelector('.hero-eyebrow');
+      if (eb) eb.textContent = t.heroEyebrow;
+
+      const msg = document.querySelector('.hero-msg');
+      if (msg) msg.textContent = t.heroMsg;
+
+      const sc = document.querySelector('.intro-script');
+      if (sc) sc.textContent = t.scriptLine;
+
+      const rt = document.querySelector('.reg-title');
+      if (rt) rt.textContent = t.regTitle;
+
+      document.querySelectorAll('a[data-zola]').forEach((a) => a.href = t.zolaUrl);
+      document.querySelectorAll('.btn-primary, .alt-card.alt-charity .btn-ghost').forEach((a) => {
+        if (a.tagName === 'A') a.href = t.zolaUrl;
+      });
+    }, [t.showNote, t.showMail, t.showCharity,
+        t.heroEyebrow, t.heroMsg, t.scriptLine, t.regTitle, t.zolaUrl]);
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Sections" />
+        <TweakToggle label="Note from the couple"
+                     value={t.showNote}
+                     onChange={(v) => setTweak('showNote', v)} />
+        <TweakToggle label="Mailing address card"
+                     value={t.showMail}
+                     onChange={(v) => setTweak('showMail', v)} />
+        <TweakToggle label="Charitable giving card"
+                     value={t.showCharity}
+                     onChange={(v) => setTweak('showCharity', v)} />
+
+        <TweakSection title="Copy" />
+        <TweakText label="Hero eyebrow" value={t.heroEyebrow}
+                   onChange={(v) => setTweak('heroEyebrow', v)} />
+        <TweakText label="Hero message" value={t.heroMsg}
+                   onChange={(v) => setTweak('heroMsg', v)} />
+        <TweakText label="Script line" value={t.scriptLine}
+                   onChange={(v) => setTweak('scriptLine', v)} />
+        <TweakText label="Registry title" value={t.regTitle}
+                   onChange={(v) => setTweak('regTitle', v)} />
+
+        <TweakSection title="Link" />
+        <TweakText label="Zola URL" value={t.zolaUrl}
+                   onChange={(v) => setTweak('zolaUrl', v)} />
+      </TweaksPanel>
+    );
+  }
+
+  const root = document.createElement('div');
+  document.body.appendChild(root);
+  ReactDOM.createRoot(root).render(<App />);
+</script>
+
+</body>
+</html>

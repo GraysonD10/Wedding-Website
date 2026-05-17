@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E + G · RSVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    /* defaults — overridden by Tweaks */
+    --cocoa:#5C3520;
+    --cocoa-deep:#4A2A18;
+    --cream:#F2E8D7;
+    --cream-card:#F6EFE2;
+    --cream-soft:#EDE0CB;
+    --ink:#3D2817;
+    --ink-soft:#7A5E47;
+    --rule:#C9B89A;
+    --sage:#6E7548;
+    --sage-deep:#5A6038;
+    --mauve:#A88283;
+    --mauve-text:#F4E8DE;
+    --sprig:#C9A57D;
+    --arrow:#C9A57D;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Montserrat',ui-sans-serif,system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Cormorant Garamond',serif}
+  .script{font-family:'Italianno',cursive}
+
+  /* ─── nav ─── */
+  .nav{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:22px 56px;background:var(--cream);
+    font-size:11px;letter-spacing:.22em;font-weight:400;
+  }
+  .nav-l, .nav-r{display:flex;align-items:center;gap:42px}
+  .nav-r{justify-content:flex-end}
+  .nav a{color:var(--ink);text-decoration:none;text-transform:uppercase}
+  .nav a:hover{color:var(--cocoa)}
+  .monogram{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:26px;letter-spacing:.08em;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .monogram .dot{width:4px;height:4px;border-radius:50%;background:var(--ink)}
+  .nav-rsvp{
+    background:var(--cocoa);color:#F2E8D7 !important;
+    padding:10px 22px;letter-spacing:.28em;
+    border-radius:2px;font-size:10.5px;
+  }
+  .nav-rsvp:hover{background:var(--cocoa-deep);color:#F2E8D7 !important}
+
+  /* ─── hero ─── */
+  .hero{
+    position:relative;height:340px;overflow:hidden;
+    background:linear-gradient(90deg,var(--cocoa) 0%,var(--cocoa) 30%,transparent 70%),
+               linear-gradient(180deg,#3a2418 0%,#5b3622 50%,#7a4a30 100%);
+    color:#F2E8D7;
+  }
+  .hero-img{
+    position:absolute;inset:0;
+    background-image:
+      radial-gradient(ellipse at 75% 35%, rgba(255,180,120,.35), transparent 50%),
+      radial-gradient(ellipse at 90% 70%, rgba(255,200,140,.25), transparent 40%),
+      linear-gradient(180deg,#5a4530 0%,#3a2818 60%,#1e1410 100%);
+    /* Simulated barn-at-sunset placeholder. Replace background-image with a real photo URL. */
+  }
+  .hero-img::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg,var(--cocoa-deep) 0%,rgba(74,42,24,.95) 18%,rgba(74,42,24,.6) 35%,rgba(74,42,24,.15) 55%,transparent 70%);
+  }
+  .hero-photo-hint{
+    position:absolute;right:36px;bottom:18px;
+    font-family:ui-monospace,Menlo,monospace;font-size:10px;
+    color:rgba(242,232,215,.5);letter-spacing:.06em;
+  }
+  .hero-vine{position:absolute;left:-30px;top:30px;color:rgba(242,232,215,.55);pointer-events:none}
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:520px;margin:0 auto 0 0;
+    padding:60px 0 0 120px;text-align:center;
+  }
+  .hero-kindly{
+    font-size:11px;letter-spacing:.42em;font-weight:400;
+    opacity:.85;margin-bottom:18px;
+  }
+  .hero-title{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;font-size:78px;line-height:1;
+    letter-spacing:.06em;margin:0 0 14px;
+  }
+  .hero-rule{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin:4px 0 22px;
+  }
+  .hero-rule::before, .hero-rule::after{
+    content:'';height:1px;width:50px;background:rgba(242,232,215,.6);
+  }
+  .hero-rule .dia{
+    width:6px;height:6px;background:rgba(242,232,215,.85);
+    transform:rotate(45deg);
+  }
+  .hero-msg{
+    font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;
+    margin:0 0 6px;opacity:.95;
+  }
+  .hero-by{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:16px;font-weight:300;opacity:.92;
+  }
+  /* curved bottom edge for hero */
+  .hero-curve{
+    position:absolute;bottom:-1px;left:0;right:0;height:60px;
+    background:var(--cream);
+    clip-path:ellipse(80% 100% at 50% 100%);
+    /* fall-back: a wave */
+  }
+
+  /* ─── form section ─── */
+  .form-section{
+    background:var(--cream);
+    padding:24px 56px 64px;
+    position:relative;
+  }
+  .form-script{
+    font-family:'Italianno',cursive;font-size:46px;
+    color:var(--cocoa);text-align:center;line-height:1;
+    margin:8px 0 6px;
+  }
+  .form-script-rule{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    color:var(--mauve);margin-bottom:42px;
+  }
+  .form-script-rule::before, .form-script-rule::after{
+    content:'';height:1px;width:48px;background:var(--rule);
+  }
+  .form-script-rule .heart{font-size:14px;color:var(--mauve)}
+
+  .rsvp-grid{
+    display:grid;
+    grid-template-columns: 1fr 36px 1fr 36px 1fr 36px 1fr;
+    gap:0;align-items:stretch;
+    max-width:1300px;margin:0 auto;
+  }
+  .rsvp-arrow{
+    display:flex;align-items:center;justify-content:center;
+    color:var(--arrow);
+  }
+  .rsvp-card{
+    background:var(--cream-card);
+    border-radius:6px;
+    padding:30px 28px 24px;
+    display:flex;flex-direction:column;align-items:center;
+    min-height:330px;position:relative;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset;
+    transition:opacity .25s;
+  }
+  .rsvp-card.is-dim{opacity:.55}
+  .rsvp-card-num{
+    font-size:13px;letter-spacing:.22em;font-weight:400;
+    color:var(--ink);text-align:center;margin-bottom:10px;
+  }
+  .rsvp-card-sub{
+    font-family:'Cormorant Garamond',serif;font-size:15px;
+    color:var(--ink-soft);text-align:center;font-style:italic;
+    line-height:1.35;margin-bottom:20px;font-weight:400;
+  }
+  .rsvp-card-body{
+    width:100%;flex:1;display:flex;flex-direction:column;
+  }
+  .rsvp-card-sprig{
+    margin-top:auto;padding-top:12px;display:flex;justify-content:center;
+    color:var(--sprig);
+  }
+
+  /* form controls */
+  .rsvp-input, .rsvp-textarea, .rsvp-select{
+    width:100%;background:#FBF6EB;
+    border:1px solid #E2D2B4;border-radius:3px;
+    padding:12px 14px;font-family:'Cormorant Garamond',serif;
+    font-size:15px;color:var(--ink);
+    font-style:italic;
+    outline:none;transition:border-color .15s;
+  }
+  .rsvp-input::placeholder, .rsvp-textarea::placeholder{
+    color:#B5A283;font-style:italic;
+  }
+  .rsvp-input:focus, .rsvp-textarea:focus, .rsvp-select:focus{
+    border-color:var(--sage);
+  }
+  .rsvp-input-sm{padding:9px 12px;font-size:13.5px}
+  .rsvp-textarea{resize:vertical;min-height:64px;font-family:'Cormorant Garamond',serif}
+  .rsvp-label{
+    font-size:11.5px;letter-spacing:.04em;color:var(--ink);
+    margin-bottom:6px;font-weight:400;
+  }
+  .rsvp-select-wrap{position:relative}
+  .rsvp-select{
+    appearance:none;-webkit-appearance:none;
+    padding-right:34px;cursor:pointer;
+  }
+  .rsvp-select-chev{
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    color:var(--ink-soft);pointer-events:none;
+  }
+
+  /* buttons */
+  .rsvp-btn{
+    width:100%;padding:13px 14px;
+    border:0;border-radius:3px;cursor:pointer;
+    font-family:'Montserrat',sans-serif;font-size:11.5px;
+    letter-spacing:.22em;font-weight:500;
+    transition:background .15s,color .15s,border-color .15s,transform .1s;
+    display:inline-flex;align-items:center;justify-content:center;
+    text-transform:uppercase;
+  }
+  .rsvp-btn:disabled{opacity:.45;cursor:not-allowed}
+  .rsvp-btn:not(:disabled):active{transform:translateY(1px)}
+  .rsvp-btn-primary{
+    background:var(--sage);color:#F4EFE0;margin-top:14px;
+  }
+  .rsvp-btn-primary:not(:disabled):hover{background:var(--sage-deep)}
+  .rsvp-btn-ghost{
+    background:transparent;color:var(--ink);
+    border:1px solid #D9C6A6;
+  }
+  .rsvp-btn-ghost:hover{border-color:var(--sage);color:var(--sage-deep)}
+  .rsvp-btn-ghost.is-selected{
+    border-color:var(--sage);
+    background:rgba(110,117,72,.14);
+    color:var(--sage-deep);
+  }
+
+  /* All Set card */
+  .rsvp-card-allset{
+    background:var(--mauve);
+    color:var(--mauve-text);
+    align-items:center;justify-content:flex-start;
+    padding:30px 28px 28px;
+  }
+  .rsvp-card-allset .rsvp-card-num{color:var(--mauve-text)}
+  .rsvp-allset-body{
+    width:100%;flex:1;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;gap:6px;
+  }
+  .rsvp-allset-art{margin:6px 0 0;opacity:.85}
+  .rsvp-allset-heart{font-size:18px;margin-top:6px;opacity:.85}
+  .rsvp-allset-thanks{
+    font-family:'Italianno',cursive;font-size:38px;line-height:1;
+    margin-top:8px;
+  }
+  .rsvp-allset-msg{
+    font-family:'Cormorant Garamond',serif;font-size:15px;
+    line-height:1.4;font-style:italic;margin-top:6px;
+  }
+  .rsvp-allset-hint{
+    font-family:'Cormorant Garamond',serif;font-size:13px;
+    font-style:italic;opacity:.75;margin-top:8px;
+  }
+.rsvp-allset-err{
+    font-family:'Cormorant Garamond',serif;font-size:13px;
+    color:#3D1A1A;background:#F4E8DE;
+    padding:6px 10px;border-radius:2px;margin-top:10px;font-style:italic;
+  }
+  .fallback-status{
+    font-family:'Cormorant Garamond',serif;
+    font-size:14px;
+    font-style:italic;
+    color:var(--mauve-text);
+    line-height:1.4;
+    min-height:20px;
+    margin-top:8px;
+  }
+  .fallback-status.is-error{
+    color:#3D1A1A;
+    background:#F4E8DE;
+    padding:6px 10px;
+    border-radius:2px;
+  }
+  .rsvp-btn-submit{
+    background:var(--cream-card);color:var(--cocoa-deep);
+    padding:14px 24px;letter-spacing:.28em;
+    margin-top:14px;
+  }
+  .rsvp-btn-submit:not(:disabled):hover{background:#FFFFFF}
+
+  /* ─── mid band ─── */
+  .mid-band{
+    background:var(--cream-soft);
+    padding:48px 56px;
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:48px;align-items:center;
+  }
+  .mb-col{text-align:center;color:var(--ink)}
+  .mb-icon{
+    display:flex;justify-content:center;
+    color:var(--ink);margin-bottom:14px;
+  }
+  .mb-lbl{
+    font-size:11px;letter-spacing:.28em;font-weight:500;
+    margin-bottom:14px;color:var(--ink);
+  }
+  .mb-body{
+    font-family:'Cormorant Garamond',serif;font-size:15.5px;
+    color:var(--ink);line-height:1.55;font-weight:400;
+  }
+  .mb-body em{font-style:italic}
+  .mb-btn{
+    display:inline-block;margin-top:18px;
+    padding:11px 24px;background:transparent;
+    border:1px solid var(--ink);color:var(--ink);
+    font-size:10.5px;letter-spacing:.28em;font-weight:500;
+    text-transform:uppercase;text-decoration:none;cursor:pointer;
+    transition:background .15s,color .15s;
+  }
+  .mb-btn:hover{background:var(--ink);color:var(--cream)}
+  .share-memory .mb-icon{margin-bottom:12px;color:var(--cocoa)}
+  .share-memory .mb-lbl{color:var(--cocoa);margin-bottom:8px}
+  .memory-diamond{
+    width:6px;height:6px;background:var(--cocoa);
+    transform:rotate(45deg);margin:0 auto 16px;
+  }
+  .share-memory .mb-body{
+    font-size:15.5px;font-weight:400;line-height:1.55;
+    color:var(--ink);max-width:250px;margin:0 auto;
+  }
+  .share-memory .mb-btn{
+    margin-top:18px;padding:12px 30px;
+    min-width:180px;
+  }
+  .mb-mono{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:30px;color:var(--ink);margin-bottom:10px;
+    display:flex;justify-content:center;align-items:center;gap:12px;
+  }
+  .mb-mono .plus{font-style:italic;font-weight:400;font-size:24px;color:var(--cocoa)}
+  .mb-thanks{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:17px;line-height:1.55;color:var(--ink);
+    max-width:300px;margin:0 auto 12px;
+  }
+  .mb-sprigs{
+    display:flex;justify-content:center;align-items:center;gap:14px;
+    color:var(--sprig);margin-top:8px;
+  }
+  .mb-sprigs .dia{
+    width:5px;height:5px;background:var(--mauve);transform:rotate(45deg);
+  }
+
+  /* ─── footer ─── */
+  .ft-cocoa{
+    background:var(--cocoa-deep);color:#E9D9BD;
+    padding:34px 56px 24px;
+  }
+  .ft-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:24px;
+    max-width:1300px;margin:0 auto;
+  }
+  .ft-pill{text-align:center}
+  .ft-pill-ico{
+    display:flex;justify-content:center;margin-bottom:8px;
+    color:#D9B98B;
+  }
+  .ft-pill-lbl{
+    font-size:10.5px;letter-spacing:.28em;font-weight:500;
+    color:#D9B98B;margin-bottom:6px;
+  }
+  .ft-pill-l1, .ft-pill-l2{
+    font-family:'Cormorant Garamond',serif;font-size:14px;
+    color:#E9D9BD;line-height:1.45;font-weight:400;
+  }
+  .ft-loc{
+    margin-top:30px;padding-top:18px;
+    display:flex;justify-content:center;align-items:center;gap:18px;
+    font-size:10.5px;letter-spacing:.42em;color:#C9A57D;
+  }
+  .ft-loc::before, .ft-loc::after{
+    content:'';height:1px;width:90px;background:#7A4A30;
+  }
+  .ft-loc .dia{width:5px;height:5px;background:#C9A57D;transform:rotate(45deg)}
+
+  /* ─── responsive (basic) ─── */
+  @media (max-width:1100px){
+    .nav{padding:18px 26px;font-size:10px;letter-spacing:.18em}
+    .nav-l, .nav-r{gap:24px}
+    .rsvp-grid{grid-template-columns:1fr;gap:18px}
+    .rsvp-arrow{transform:rotate(90deg)}
+    .ft-grid{grid-template-columns:repeat(2,1fr)}
+    .mid-band{grid-template-columns:1fr;gap:32px}
+  }
+  @media (max-width:720px){
+    .nav{
+      grid-template-columns:1fr;
+      justify-items:center;
+      row-gap:9px;
+      padding:12px 14px 14px;
+      font-size:9px;
+      letter-spacing:.16em;
+    }
+    .nav .monogram{grid-row:1;font-size:24px}
+    .nav-l, .nav-r{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px 17px;
+    }
+    .nav-l{grid-row:2}
+    .nav-r{grid-row:3}
+    .nav a{white-space:nowrap}
+    .nav-rsvp{
+      padding:8px 15px;
+      font-size:9px;
+      letter-spacing:.2em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────── NAV ───────── -->
+<nav class="nav">
+  <div class="nav-l">
+    <a href="Wedding Landing.html">HOME</a>
+    <a href="our-story.html">OUR STORY</a>
+    <a href="the-day.html">THE DAY</a>
+  </div>
+  <div class="monogram"><span id="mono-l">E</span><span class="dot"></span><span id="mono-r">G</span></div>
+  <div class="nav-r">
+    <a href="share-memory.html">SHARE A MEMORY</a>
+    <a href="faq.html">FAQ</a>
+    <a href="registry.html">REGISTRY</a>
+    <a href="rsvp.html" class="nav-rsvp">RSVP</a>
+  </div>
+</nav>
+
+<!-- ───────── HERO ───────── -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-photo-hint">[ hero photo — barn at sunset ]</div>
+  <div class="hero-vine" id="hero-vine"></div>
+  <div class="hero-content">
+    <div class="hero-kindly">KINDLY</div>
+    <h1 class="hero-title">RSVP</h1>
+    <div class="hero-rule"><div class="dia"></div></div>
+    <p class="hero-msg" id="hero-msg">We can't wait to celebrate with you.</p>
+    <p class="hero-by"><em id="hero-by">Please RSVP by August 1st, 2026.</em></p>
+  </div>
+  <div class="hero-curve"></div>
+</section>
+
+<!-- ───────── FORM ───────── -->
+<section class="form-section" id="rsvp">
+  <div class="form-script" id="form-script">We can't wait to celebrate with you</div>
+  <div class="form-script-rule"><span class="heart">♡</span></div>
+  <div id="rsvp-root">
+    <form class="rsvp-grid" id="fallback-rsvp-form">
+      <div class="rsvp-card">
+        <div class="rsvp-card-num">1. FIND YOUR NAME</div>
+        <div class="rsvp-card-sub">Enter your name as it appears<br/>on your invitation.</div>
+        <div class="rsvp-card-body">
+          <input class="rsvp-input" id="fallback-name" name="name" placeholder="Full Name" required />
+          <button class="rsvp-btn rsvp-btn-primary" type="button" id="fallback-found">FIND ME</button>
+        </div>
+      </div>
+      <div class="rsvp-arrow">→</div>
+
+      <div class="rsvp-card">
+        <div class="rsvp-card-num">2. RSVP</div>
+        <div class="rsvp-card-sub">Will you be joining us?</div>
+        <div class="rsvp-card-body" style="gap:10px;">
+          <button class="rsvp-btn rsvp-btn-ghost" type="button" data-response="accepts">JOYFULLY ACCEPTS</button>
+          <button class="rsvp-btn rsvp-btn-ghost" type="button" data-response="declines">DECLINES WITH REGRET</button>
+          <input type="hidden" id="fallback-response" name="response" required />
+        </div>
+      </div>
+      <div class="rsvp-arrow">→</div>
+
+      <div class="rsvp-card" id="fallback-details-card">
+        <div class="rsvp-card-num">3. DETAILS</div>
+        <div class="rsvp-card-sub" id="fallback-details-sub">Help us plan the best day ever!</div>
+        <div class="rsvp-card-body" id="fallback-details-body" style="gap:12px;">
+          <label>
+            <div class="rsvp-label">Meal Preference</div>
+            <div class="rsvp-select-wrap">
+              <select class="rsvp-select" id="fallback-meal" name="meal">
+                <option value="">Select an option</option>
+                <option>Chick-fil-A Chicken Nuggets</option>
+                <option>Chick-fil-A Grilled Chicken Nuggets</option>
+                <option>Sub Sandwiches</option>
+              </select>
+              <span class="rsvp-select-chev">⌄</span>
+            </div>
+          </label>
+          <label>
+            <div class="rsvp-label">Side Preference</div>
+            <div class="rsvp-select-wrap">
+              <select class="rsvp-select" id="fallback-side" name="side">
+                <option value="">Select an option</option>
+                <option>Mac &amp; Cheese</option>
+                <option>Fruit</option>
+                <option>Salad</option>
+              </select>
+              <span class="rsvp-select-chev">⌄</span>
+            </div>
+          </label>
+          <label>
+            <div class="rsvp-label">Any Dietary Restrictions?</div>
+            <input class="rsvp-input rsvp-input-sm" id="fallback-dietary" name="dietary" placeholder="Let us know..." />
+          </label>
+          <label>
+            <div class="rsvp-label">Notes for the couple</div>
+            <input class="rsvp-input rsvp-input-sm" id="fallback-notes" name="notes" placeholder="Share a note..." />
+          </label>
+        </div>
+      </div>
+      <div class="rsvp-arrow">→</div>
+
+      <div class="rsvp-card rsvp-card-allset" id="fallback-allset-card">
+        <div class="rsvp-card-num" id="fallback-allset-title">4. ALL SET?</div>
+        <div class="rsvp-card-sub" id="fallback-allset-sub" style="color:var(--mauve-text);">Review your details, then send.</div>
+        <div class="rsvp-allset-body">
+          <div class="rsvp-allset-art" id="fallback-allset-art" style="color:var(--mauve-text);opacity:.65;"></div>
+          <button class="rsvp-btn rsvp-btn-submit" type="submit">SEND RSVP</button>
+          <div class="fallback-status" id="fallback-status">Complete the steps to send.</div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ───────── MID BAND ───────── -->
+<section class="mid-band">
+  <div class="mb-col share-memory">
+    <div class="mb-icon">
+      <svg width="34" height="28" viewBox="0 0 34 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <path d="M5 8h6l2-4h8l2 4h6a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3Z"/>
+        <path d="M14 15c0-2 3-3 4.5-.9C20 12 23 13 23 15.4c0 3.3-4.5 5.4-4.5 5.4S14 18.7 14 15Z"/>
+      </svg>
+    </div>
+    <div class="mb-lbl">SHARE A MEMORY</div>
+    <div class="memory-diamond" aria-hidden="true"></div>
+    <div class="mb-body">
+      Do you have a favorite memory<br/>
+      with us? We'd love to hear it.
+    </div>
+    <a class="mb-btn" href="share-memory.html">SHARE WITH US</a>
+  </div>
+  <div class="mb-col">
+    <div class="mb-mono"><em id="mb-l">E</em><span class="plus">+</span><em id="mb-r">G</em></div>
+    <div class="mb-thanks">
+      We are so grateful for your love<br/>
+      and support. It means the world to us!
+    </div>
+    <div class="mb-sprigs" id="mb-sprigs"></div>
+  </div>
+  <div class="mb-col">
+    <div class="mb-icon">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="11" cy="11" r="10"/>
+        <path d="M7.5 8.5 Q 7.5 5.5, 11 5.5 Q 14.5 5.5, 14.5 8.5 Q 14.5 11, 11 12 L 11 14"/>
+        <circle cx="11" cy="17" r=".7" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="mb-lbl">NEED HELP?</div>
+    <div class="mb-body">
+      If you have any trouble finding your name<br/>
+      or submitting your RSVP, please reach out<br/>
+      and we'll be happy to help.
+    </div>
+  </div>
+</section>
+
+<!-- ───────── FOOTER ───────── -->
+<footer class="ft-cocoa">
+  <div class="ft-grid">
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M8 4 Q 11 1, 14 4 L 14 8 Q 18 9, 19 14 L 21 25 L 1 25 L 3 14 Q 4 9, 8 8 Z"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">DRESS CODE</div>
+      <div class="ft-pill-l1">Garden Formal</div>
+      <div class="ft-pill-l2">Boots Welcome</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="24" height="22" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M12 20 Q 4 14, 4 8 Q 4 3, 9 3 Q 12 3, 12 7 Q 12 3, 15 3 Q 20 3, 20 8 Q 20 14, 12 20 Z"/>
+          <path d="M12 20 L 12 4"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">CEREMONY</div>
+      <div class="ft-pill-l1">Outdoors</div>
+      <div class="ft-pill-l2">Weather Permitting</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M3 13 L 5 6 Q 6 4, 8 4 L 20 4 Q 22 4, 23 6 L 25 13 L 25 17 L 22 17 L 22 15 L 6 15 L 6 17 L 3 17 Z"/>
+          <circle cx="8" cy="15" r="2"/><circle cx="20" cy="15" r="2"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">PARKING</div>
+      <div class="ft-pill-l1">On-site parking</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M6 2 L 6 9 Q 6 13, 11 13 Q 16 13, 16 9 L 16 2"/>
+          <path d="M11 13 L 11 20"/><path d="M7 20 L 15 20"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">RECEPTION</div>
+      <div class="ft-pill-l1">Reception in the Barn</div>
+      <div class="ft-pill-l2">Dinner &amp; Dancing</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2 L 12 5 M12 19 L 12 22 M2 12 L 5 12 M19 12 L 22 12
+                   M4.5 4.5 L 6.5 6.5 M17.5 17.5 L 19.5 19.5
+                   M4.5 19.5 L 6.5 17.5 M17.5 6.5 L 19.5 4.5"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">WEATHER NOTE</div>
+      <div class="ft-pill-l1">October in Georgia</div>
+      <div class="ft-pill-l2">can be cool in the evening</div>
+    </div>
+  </div>
+  <div class="ft-loc">
+    <span id="loc-l">FAYETTEVILLE</span>
+    <div class="dia"></div>
+    <span id="loc-r">GEORGIA</span>
+  </div>
+</footer>
+
+<!-- ───────── SCRIPTS ───────── -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Tweaks defaults — block is rewritten on disk when user changes a knob -->
+<script>
+  // ── Paste your deployed Google Apps Script Web App /exec URL here ──
+  // (See SETUP.md for the 3-minute setup walkthrough.)
+  window.SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzjRD4j5Dp5qdnVaVchh6E4WUmSepkUpL4jeOQXbmbxDoHFCCRVQfOgnPGinD9Hv1Wqeg/exec';
+
+  window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "monoLeft": "E",
+    "monoRight": "G",
+    "rsvpBy": "Please RSVP by August 1st, 2026.",
+    "heroMsg": "We can't wait to celebrate with you.",
+    "scriptLine": "We can't wait to celebrate with you",
+    "locationLeft": "FAYETTEVILLE",
+    "locationRight": "GEORGIA",
+    "meals": "Chick-fil-A Chicken Nuggets, Chick-fil-A Grilled Chicken Nuggets, Sub Sandwiches",
+    "sides": "Mac & Cheese, Fruit, Salad",
+    "palette": "cocoa"
+  }/*EDITMODE-END*/;
+</script>
+
+<script>
+  (function(){
+    function setStatus(message, isError){
+      var status = document.getElementById('fallback-status');
+      if (!status) return;
+      status.textContent = message || '';
+      status.classList.toggle('is-error', !!isError);
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      var form = document.getElementById('fallback-rsvp-form');
+      if (!form) return;
+
+      var foundGuest = false;
+      var responseInput = document.getElementById('fallback-response');
+      var found = document.getElementById('fallback-found');
+      var detailsSub = document.getElementById('fallback-details-sub');
+      var detailsBody = document.getElementById('fallback-details-body');
+      var meals = ((window.TWEAK_DEFAULTS && window.TWEAK_DEFAULTS.meals) || 'Chick-fil-A Chicken Nuggets, Chick-fil-A Grilled Chicken Nuggets, Sub Sandwiches')
+        .split(',')
+        .map(function(meal){ return meal.trim(); })
+        .filter(Boolean);
+      var sides = ((window.TWEAK_DEFAULTS && window.TWEAK_DEFAULTS.sides) || 'Mac & Cheese, Fruit, Salad')
+        .split(',')
+        .map(function(side){ return side.trim(); })
+        .filter(Boolean);
+
+      function escapeHtml(value){
+        return String(value || '').replace(/[&<>"']/g, function(ch){
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+        });
+      }
+
+      function floralBouquet(width){
+        var w = width || 180;
+        var h = Math.round(w * 150 / 240);
+        return [
+          '<svg viewBox="0 0 240 150" width="' + w + '" height="' + h + '" aria-hidden="true" style="display:block">',
+            '<g fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round">',
+              '<path d="M120 138 Q 116 108, 118 82 Q 120 58, 120 34" />',
+              '<path d="M120 138 Q 96 112, 78 86 Q 62 62, 50 38" />',
+              '<path d="M120 138 Q 144 112, 162 86 Q 178 62, 190 38" />',
+              '<path d="M116 120 Q 92 111, 70 114 Q 48 118, 28 105" />',
+              '<path d="M124 120 Q 148 111, 170 114 Q 192 118, 212 105" />',
+              '<path d="M105 96 Q 86 86, 68 82" />',
+              '<path d="M135 96 Q 154 86, 172 82" />',
+              '<g><circle cx="120" cy="34" r="5" /><ellipse cx="120" cy="23" rx="5" ry="10" /><ellipse cx="130" cy="31" rx="5" ry="10" transform="rotate(64 130 31)" /><ellipse cx="126" cy="43" rx="5" ry="10" transform="rotate(136 126 43)" /><ellipse cx="114" cy="43" rx="5" ry="10" transform="rotate(44 114 43)" /><ellipse cx="110" cy="31" rx="5" ry="10" transform="rotate(-64 110 31)" /></g>',
+              '<g><circle cx="50" cy="38" r="5" /><ellipse cx="50" cy="27" rx="5" ry="10" /><ellipse cx="60" cy="35" rx="5" ry="10" transform="rotate(64 60 35)" /><ellipse cx="56" cy="47" rx="5" ry="10" transform="rotate(136 56 47)" /><ellipse cx="44" cy="47" rx="5" ry="10" transform="rotate(44 44 47)" /><ellipse cx="40" cy="35" rx="5" ry="10" transform="rotate(-64 40 35)" /></g>',
+              '<g><circle cx="190" cy="38" r="5" /><ellipse cx="190" cy="27" rx="5" ry="10" /><ellipse cx="200" cy="35" rx="5" ry="10" transform="rotate(64 200 35)" /><ellipse cx="196" cy="47" rx="5" ry="10" transform="rotate(136 196 47)" /><ellipse cx="184" cy="47" rx="5" ry="10" transform="rotate(44 184 47)" /><ellipse cx="180" cy="35" rx="5" ry="10" transform="rotate(-64 180 35)" /></g>',
+              '<ellipse cx="78" cy="86" rx="7" ry="2.8" transform="rotate(-30 78 86)" />',
+              '<ellipse cx="64" cy="76" rx="7" ry="2.8" transform="rotate(-34 64 76)" />',
+              '<ellipse cx="94" cy="108" rx="7" ry="2.8" transform="rotate(-22 94 108)" />',
+              '<ellipse cx="70" cy="114" rx="7" ry="2.8" transform="rotate(-18 70 114)" />',
+              '<ellipse cx="162" cy="86" rx="7" ry="2.8" transform="rotate(30 162 86)" />',
+              '<ellipse cx="176" cy="76" rx="7" ry="2.8" transform="rotate(34 176 76)" />',
+              '<ellipse cx="146" cy="108" rx="7" ry="2.8" transform="rotate(22 146 108)" />',
+              '<ellipse cx="170" cy="114" rx="7" ry="2.8" transform="rotate(18 170 114)" />',
+              '<ellipse cx="104" cy="76" rx="7" ry="2.8" transform="rotate(-18 104 76)" />',
+              '<ellipse cx="136" cy="76" rx="7" ry="2.8" transform="rotate(18 136 76)" />',
+              '<ellipse cx="108" cy="118" rx="7" ry="2.8" transform="rotate(-14 108 118)" />',
+              '<ellipse cx="132" cy="118" rx="7" ry="2.8" transform="rotate(14 132 118)" />',
+              '<ellipse cx="38" cy="108" rx="7" ry="2.8" transform="rotate(-34 38 108)" />',
+              '<ellipse cx="202" cy="108" rx="7" ry="2.8" transform="rotate(34 202 108)" />',
+              '<circle cx="88" cy="68" r="2" fill="currentColor" />',
+              '<circle cx="98" cy="62" r="2" fill="currentColor" />',
+              '<circle cx="142" cy="68" r="2" fill="currentColor" />',
+              '<circle cx="152" cy="62" r="2" fill="currentColor" />',
+            '</g>',
+          '</svg>'
+        ].join('');
+      }
+
+      function renderAllSetSent(){
+        var card = document.getElementById('fallback-allset-card');
+        var title = document.getElementById('fallback-allset-title');
+        var sub = document.getElementById('fallback-allset-sub');
+        var body = card ? card.querySelector('.rsvp-allset-body') : null;
+        if (!card || !title || !body) return;
+        card.classList.add('is-done');
+        title.textContent = "4. YOU'RE ALL SET";
+        if (sub) sub.remove();
+        body.innerHTML = [
+          '<div class="rsvp-allset-art" style="color:var(--mauve-text);">',
+            floralBouquet(210),
+          '</div>',
+          '<div class="rsvp-allset-heart" style="color:var(--mauve-text);">&hearts;</div>',
+          '<div class="rsvp-allset-thanks" style="color:var(--mauve-text);">Thank you!</div>',
+          "<div class=\"rsvp-allset-msg\" style=\"color:var(--mauve-text);\">We can't wait to<br/>celebrate with you.</div>"
+        ].join('');
+      }
+
+      function renderDetails(response){
+        var notesValue = document.getElementById('fallback-notes') ? document.getElementById('fallback-notes').value : '';
+        var dietaryValue = document.getElementById('fallback-dietary') ? document.getElementById('fallback-dietary').value : '';
+        var mealValue = document.getElementById('fallback-meal') ? document.getElementById('fallback-meal').value : '';
+        var sideValue = document.getElementById('fallback-side') ? document.getElementById('fallback-side').value : '';
+
+        if (response === 'declines') {
+          detailsSub.textContent = "We'll miss you dearly.";
+          detailsBody.innerHTML = [
+            '<label>',
+              '<div class="rsvp-label">A note for the couple</div>',
+              '<textarea class="rsvp-textarea" id="fallback-notes" name="notes" rows="4" placeholder="Share a note...">',
+                escapeHtml(notesValue),
+              '</textarea>',
+            '</label>'
+          ].join('');
+          return;
+        }
+
+        detailsSub.textContent = 'Help us plan the best day ever!';
+        detailsBody.innerHTML = [
+          '<label>',
+            '<div class="rsvp-label">Meal Preference</div>',
+            '<div class="rsvp-select-wrap">',
+              '<select class="rsvp-select" id="fallback-meal" name="meal">',
+                '<option value="">Select an option</option>',
+                meals.map(function(meal){
+                  var selected = meal === mealValue ? ' selected' : '';
+                  return '<option' + selected + '>' + escapeHtml(meal) + '</option>';
+                }).join(''),
+              '</select>',
+              '<span class="rsvp-select-chev">⌄</span>',
+            '</div>',
+          '</label>',
+          '<label>',
+            '<div class="rsvp-label">Side Preference</div>',
+            '<div class="rsvp-select-wrap">',
+              '<select class="rsvp-select" id="fallback-side" name="side">',
+                '<option value="">Select an option</option>',
+                sides.map(function(side){
+                  var selected = side === sideValue ? ' selected' : '';
+                  return '<option' + selected + '>' + escapeHtml(side) + '</option>';
+                }).join(''),
+              '</select>',
+              '<span class="rsvp-select-chev">⌄</span>',
+            '</div>',
+          '</label>',
+          '<label>',
+            '<div class="rsvp-label">Any Dietary Restrictions?</div>',
+            '<input class="rsvp-input rsvp-input-sm" id="fallback-dietary" name="dietary" placeholder="Let us know..." value="' + escapeHtml(dietaryValue) + '" />',
+          '</label>',
+          '<label>',
+            '<div class="rsvp-label">Notes for the couple</div>',
+            '<input class="rsvp-input rsvp-input-sm" id="fallback-notes" name="notes" placeholder="Share a note..." value="' + escapeHtml(notesValue) + '" />',
+          '</label>'
+        ].join('');
+      }
+
+      var allsetArt = document.getElementById('fallback-allset-art');
+      if (allsetArt) allsetArt.innerHTML = floralBouquet(180);
+
+      var responseButtons = form.querySelectorAll('[data-response]');
+      responseButtons.forEach(function(button){
+        button.addEventListener('click', function(){
+          responseInput.value = button.getAttribute('data-response');
+          responseButtons.forEach(function(btn){ btn.classList.remove('is-selected'); });
+          button.classList.add('is-selected');
+          renderDetails(responseInput.value);
+          setStatus('Review your details, then send.');
+        });
+      });
+
+      if (found) {
+        found.addEventListener('click', function(){
+          var name = document.getElementById('fallback-name').value.trim();
+          foundGuest = !!name;
+          found.textContent = foundGuest ? '✓ FOUND' : 'FIND ME';
+          setStatus(name ? 'Found. Choose your RSVP response next.' : 'Please enter your full name.', !name);
+        });
+      }
+
+      var nameInput = document.getElementById('fallback-name');
+      if (nameInput) {
+        nameInput.addEventListener('input', function(){
+          foundGuest = false;
+          if (found) found.textContent = 'FIND ME';
+        });
+        nameInput.addEventListener('keydown', function(event){
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            if (found) found.click();
+          }
+        });
+      }
+
+      form.addEventListener('submit', async function(event){
+        event.preventDefault();
+        var name = document.getElementById('fallback-name').value.trim();
+        var response = responseInput.value;
+        var mealField = document.getElementById('fallback-meal');
+        var sideField = document.getElementById('fallback-side');
+        var dietaryField = document.getElementById('fallback-dietary');
+        var notesField = document.getElementById('fallback-notes');
+        var meal = mealField ? mealField.value : '';
+        var side = sideField ? sideField.value : '';
+
+        if (!name) {
+          setStatus('Please enter your full name.', true);
+          return;
+        }
+        if (!foundGuest) {
+          if (found) found.click();
+          if (!foundGuest) return;
+        }
+        if (!response) {
+          setStatus('Please choose accepts or declines.', true);
+          return;
+        }
+        if (response === 'accepts' && !meal) {
+          setStatus('Please choose a meal preference.', true);
+          return;
+        }
+        if (response === 'accepts' && !side) {
+          setStatus('Please choose a side preference.', true);
+          return;
+        }
+
+        var submit = form.querySelector('[type="submit"]');
+        submit.disabled = true;
+        submit.textContent = 'SENDING...';
+        setStatus('Sending your RSVP...');
+
+        var body = new URLSearchParams();
+        body.append('name', name);
+        body.append('response', response);
+        body.append('meal', response === 'accepts' ? meal : '');
+        body.append('side', response === 'accepts' ? side : '');
+        body.append('dietary', response === 'accepts' && dietaryField ? dietaryField.value : '');
+        body.append('notes', notesField ? notesField.value : '');
+        body.append('userAgent', navigator.userAgent);
+
+        try {
+          if (window.SHEETS_ENDPOINT) {
+            await fetch(window.SHEETS_ENDPOINT, { method: 'POST', mode: 'no-cors', body: body });
+          }
+          renderAllSetSent();
+        } catch (err) {
+          submit.disabled = false;
+          submit.textContent = 'SEND RSVP';
+          setStatus('Something went wrong. Please try again.', true);
+        }
+      });
+    });
+  })();
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="rsvp-app.jsx"></script>
+
+<script type="text/babel">
+const PALETTES = {
+  cocoa: {
+    name: 'Cocoa & Sage',
+    swatches: ['#5C3520', '#6E7548', '#A88283', '#F2E8D7'],
+    vars: {
+      '--cocoa':'#5C3520', '--cocoa-deep':'#4A2A18',
+      '--cream':'#F2E8D7', '--cream-card':'#F6EFE2', '--cream-soft':'#EDE0CB',
+      '--ink':'#3D2817', '--ink-soft':'#7A5E47', '--rule':'#C9B89A',
+      '--sage':'#6E7548', '--sage-deep':'#5A6038',
+      '--mauve':'#A88283', '--mauve-text':'#F4E8DE',
+      '--sprig':'#C9A57D', '--arrow':'#C9A57D',
+    },
+    sprig:'#C9A57D', arrow:'#C9A57D',
+    allSetText:'#F4E8DE',
+  },
+  blush: {
+    name: 'Blush & Sage',
+    swatches: ['#8C5E5C', '#7A8459', '#D8B0A6', '#F6EDE4'],
+    vars: {
+      '--cocoa':'#8C5E5C', '--cocoa-deep':'#6F4848',
+      '--cream':'#F6EDE4', '--cream-card':'#FAF3EA', '--cream-soft':'#F1E5D9',
+      '--ink':'#4A3030', '--ink-soft':'#8A6A65', '--rule':'#D9C6B9',
+      '--sage':'#7A8459', '--sage-deep':'#626B47',
+      '--mauve':'#C58C8A', '--mauve-text':'#FBF1ED',
+      '--sprig':'#C2A089', '--arrow':'#C2A089',
+    },
+    sprig:'#C2A089', arrow:'#C2A089',
+    allSetText:'#FBF1ED',
+  },
+  slate: {
+    name: 'Slate & Gold',
+    swatches: ['#2F3A4A', '#A8884A', '#7E8B9B', '#EFE9DC'],
+    vars: {
+      '--cocoa':'#2F3A4A', '--cocoa-deep':'#1F2734',
+      '--cream':'#EFE9DC', '--cream-card':'#F5EFE2', '--cream-soft':'#E6DECD',
+      '--ink':'#26303D', '--ink-soft':'#5B6776', '--rule':'#BFB39A',
+      '--sage':'#A8884A', '--sage-deep':'#8B6E36',
+      '--mauve':'#7E8B9B', '--mauve-text':'#F2EEE4',
+      '--sprig':'#A8884A', '--arrow':'#A8884A',
+    },
+    sprig:'#A8884A', arrow:'#A8884A',
+    allSetText:'#F2EEE4',
+  },
+};
+
+function applyPalette(key) {
+  const p = PALETTES[key] || PALETTES.cocoa;
+  const root = document.documentElement;
+  Object.entries(p.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+  return p;
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
+  const pal = applyPalette(t.palette);
+  const palette = {
+    sprig: pal.sprig, arrow: pal.arrow, allSetText: pal.allSetText,
+  };
+
+  // bind tweak copy into static DOM
+  React.useEffect(() => {
+    document.getElementById('mono-l').textContent = t.monoLeft;
+    document.getElementById('mono-r').textContent = t.monoRight;
+    document.getElementById('mb-l').textContent = t.monoLeft;
+    document.getElementById('mb-r').textContent = t.monoRight;
+    document.getElementById('hero-by').textContent = t.rsvpBy;
+    document.getElementById('hero-msg').textContent = t.heroMsg;
+    document.getElementById('form-script').textContent = t.scriptLine;
+    document.getElementById('loc-l').textContent = t.locationLeft;
+    document.getElementById('loc-r').textContent = t.locationRight;
+  }, [t.monoLeft, t.monoRight, t.rsvpBy, t.heroMsg, t.scriptLine,
+      t.locationLeft, t.locationRight]);
+
+  // decorative vines/sprigs into static nodes
+  React.useEffect(() => {
+    const vine = document.getElementById('hero-vine');
+    if (vine) {
+      vine.innerHTML = '';
+      const root = ReactDOM.createRoot(vine);
+      root.render(<window.RsvpCornerVine color="rgba(242,232,215,.55)" w={220} />);
+    }
+    const mb = document.getElementById('mb-sprigs');
+    if (mb) {
+      mb.innerHTML = '';
+      const root = ReactDOM.createRoot(mb);
+      root.render(
+        <>
+          <window.RsvpSprig color="var(--sprig)" w={90} />
+          <span className="dia"></span>
+          <window.RsvpSprig color="var(--sprig)" w={90} />
+        </>
+      );
+    }
+  }, [t.palette]);
+
+  return (
+    <>
+      <window.RsvpApp palette={palette} tweaks={t} />
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Palette" />
+        <TweakColor
+          label="Theme"
+          value={PALETTES[t.palette]?.swatches || PALETTES.cocoa.swatches}
+          options={Object.values(PALETTES).map((p) => p.swatches)}
+          onChange={(swatches) => {
+            const key = Object.entries(PALETTES)
+              .find(([, p]) => p.swatches === swatches || p.swatches.join() === swatches.join())?.[0];
+            if (key) setTweak('palette', key);
+          }}
+        />
+        <TweakSection label="Names &amp; Dates" />
+        <TweakText label="Monogram L" value={t.monoLeft}
+                   onChange={(v) => setTweak('monoLeft', v)} />
+        <TweakText label="Monogram R" value={t.monoRight}
+                   onChange={(v) => setTweak('monoRight', v)} />
+        <TweakText label="Hero message" value={t.heroMsg}
+                   onChange={(v) => setTweak('heroMsg', v)} />
+        <TweakText label="RSVP by" value={t.rsvpBy}
+                   onChange={(v) => setTweak('rsvpBy', v)} />
+        <TweakText label="Script line" value={t.scriptLine}
+                   onChange={(v) => setTweak('scriptLine', v)} />
+        <TweakSection label="Location" />
+        <TweakText label="City" value={t.locationLeft}
+                   onChange={(v) => setTweak('locationLeft', v)} />
+        <TweakText label="State" value={t.locationRight}
+                   onChange={(v) => setTweak('locationRight', v)} />
+        <TweakSection label="Form" />
+        <TweakText label="Meal options" value={t.meals}
+                   onChange={(v) => setTweak('meals', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+// Keep the RSVP form as stable HTML so it remains visible even if React/Babel fails.
+// The previous React mount replaced #rsvp-root, which could leave the section blank.
+</script>
+
+</body>
+</html>

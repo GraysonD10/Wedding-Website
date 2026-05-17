@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E + G &middot; Memory Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Caveat:wght@400;500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --cocoa:#5C3520;
+    --cocoa-deep:#4A2A18;
+    --cream:#F2E8D7;
+    --cream-card:#F6EFE2;
+    --cream-soft:#EDE0CB;
+    --polaroid:#FBF6EB;
+    --ink:#3D2817;
+    --ink-soft:#7A5E47;
+    --rule:#C9B89A;
+    --sage:#6E7548;
+    --mauve:#A88283;
+    --sprig:#C9A57D;
+    --tape:rgba(201,165,125,.42);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Montserrat',ui-sans-serif,system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+
+  .nav{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:22px 56px;background:var(--cream);
+    font-size:11px;letter-spacing:.22em;font-weight:400;
+  }
+  .nav-l,.nav-r{display:flex;align-items:center;gap:42px}
+  .nav-r{justify-content:flex-end}
+  .nav a{color:var(--ink);text-decoration:none;text-transform:uppercase}
+  .nav a:hover{color:var(--cocoa)}
+  .monogram{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:26px;letter-spacing:.08em;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .monogram .dot{width:4px;height:4px;border-radius:50%;background:var(--ink)}
+  .nav-rsvp{
+    background:var(--cocoa);color:#F2E8D7 !important;
+    padding:10px 22px;letter-spacing:.28em;
+    border-radius:2px;font-size:10.5px;
+  }
+  .nav-rsvp:hover{background:var(--cocoa-deep);color:#F2E8D7 !important}
+
+  .hero{
+    position:relative;
+    min-height:350px;
+    background:
+      linear-gradient(90deg,rgba(74,42,24,.96) 0%,rgba(92,53,32,.84) 42%,rgba(92,53,32,.42) 100%),
+      url("images/sunflower-field.jpg") center/cover no-repeat;
+    color:#F2E8D7;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:28px;
+    border:1px solid rgba(242,232,215,.28);
+    pointer-events:none;
+  }
+  .hero-copy{
+    position:relative;z-index:1;
+    max-width:640px;
+    margin:0 auto;
+    text-align:center;
+    padding:72px 24px 68px;
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .star{font-size:12px;color:#D7B994;margin-bottom:12px}
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:76px;
+    line-height:.95;
+    margin:0;
+  }
+  .hero-rule{
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    margin:22px auto 18px;
+  }
+  .hero-rule::before,.hero-rule::after{
+    content:'';width:78px;height:1px;background:rgba(242,232,215,.46);
+  }
+  .hero-rule span{width:6px;height:6px;background:#D7B994;transform:rotate(45deg)}
+  .hero-copy p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;
+    line-height:1.55;
+    font-style:italic;
+    margin:0 auto;
+    max-width:490px;
+  }
+
+  .gallery-section{
+    padding:72px 52px 86px;
+    background:linear-gradient(180deg,#F6EFE2 0%,var(--cream) 100%);
+  }
+  .section-head{
+    text-align:center;
+    margin:0 auto 46px;
+    max-width:660px;
+  }
+  .section-head .script{
+    font-family:'Italianno',cursive;
+    font-size:52px;
+    color:var(--cocoa);
+    margin-bottom:8px;
+  }
+  .section-head p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin:0;
+  }
+  .wall{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:34px 26px;
+  }
+  .pol{
+    background:var(--polaroid);
+    padding:18px 18px 14px;
+    box-shadow:0 12px 24px -16px rgba(74,42,24,.35),
+               0 2px 6px rgba(74,42,24,.08);
+    position:relative;
+    transition:transform .25s ease;
+  }
+  .pol::before{
+    content:'';position:absolute;left:50%;top:-10px;
+    width:74px;height:20px;transform:translateX(-50%) rotate(-2deg);
+    background:var(--tape);
+    box-shadow:0 1px 2px rgba(74,42,24,.08);
+  }
+  .pol.tape-r::before{transform:translateX(-50%) rotate(4deg);left:62%}
+  .pol.tape-l::before{transform:translateX(-50%) rotate(-5deg);left:38%}
+  .pol.tilt-l{transform:rotate(-1.4deg)}
+  .pol.tilt-r{transform:rotate(1.6deg)}
+  .pol:hover{transform:rotate(0) translateY(-3px)}
+  .pol-heart{
+    position:absolute;top:10px;left:14px;
+    color:var(--mauve);font-size:12px;opacity:.7;
+  }
+  .pol-text{
+    min-height:230px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:34px 22px 22px;
+  }
+  .pol-text .quote{
+    font-family:'Cormorant Garamond',serif;font-size:15px;
+    color:var(--ink);line-height:1.55;font-style:italic;font-weight:400;
+  }
+  .pol-text .sig{
+    font-family:'Cormorant Garamond',serif;font-size:13.5px;
+    color:var(--ink-soft);margin-top:14px;font-style:italic;
+  }
+  .pol-photo{padding:14px 14px 10px}
+  .pol-photo .photo{
+    width:100%;aspect-ratio:1/1;background:var(--cream-soft);
+    background-size:cover;background-position:center;
+    margin-bottom:10px;position:relative;overflow:hidden;
+  }
+  .pol-photo .caption{
+    font-family:'Caveat',cursive;font-size:18px;color:var(--cocoa);
+    text-align:center;line-height:1.1;padding:2px 4px 2px;
+  }
+  .pol-photo .caption .heart{color:var(--mauve);font-size:13px;margin-left:4px}
+  .photo-hint{
+    position:absolute;left:8px;bottom:8px;
+    font-family:ui-monospace,Menlo,monospace;font-size:9px;
+    color:rgba(255,240,220,.65);letter-spacing:.06em;
+  }
+  .wall-empty{
+    grid-column:1/-1;text-align:center;padding:48px 20px;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:var(--ink-soft);font-size:17px;
+  }
+  .cta-row{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:52px;
+  }
+  .btn-ghost{
+    display:inline-block;padding:12px 30px;background:transparent;
+    border:1px solid var(--ink);color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;
+    letter-spacing:.32em;text-transform:uppercase;text-decoration:none;
+    transition:background .15s,color .15s;
+  }
+  .btn-ghost:hover{background:var(--ink);color:var(--cream)}
+
+  @media (max-width:1100px){
+    .nav{padding:18px 26px;font-size:10px;letter-spacing:.18em}
+    .nav-l,.nav-r{gap:24px}
+    .wall{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:820px){
+    .wall{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:720px){
+    .nav{
+      grid-template-columns:1fr;
+      justify-items:center;
+      row-gap:9px;
+      padding:12px 14px 14px;
+      font-size:9px;
+      letter-spacing:.16em;
+    }
+    .nav .monogram{grid-row:1;font-size:24px}
+    .nav-l,.nav-r{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px 17px;
+    }
+    .nav-l{grid-row:2}
+    .nav-r{grid-row:3}
+    .nav a{white-space:nowrap}
+    .nav-rsvp{padding:8px 15px;font-size:9px;letter-spacing:.2em}
+    h1{font-size:58px}
+    .hero::before{inset:18px}
+    .gallery-section{padding:54px 18px 66px}
+    .wall{grid-template-columns:1fr;max-width:340px}
+  }
+</style>
+</head>
+
+<body>
+<nav class="nav">
+  <div class="nav-l">
+    <a href="Wedding Landing.html">HOME</a>
+    <a href="our-story.html">OUR STORY</a>
+    <a href="the-day.html">THE DAY</a>
+  </div>
+  <div class="monogram"><span>E</span><span class="dot"></span><span>G</span></div>
+  <div class="nav-r">
+    <a href="share-memory.html">SHARE A MEMORY</a>
+    <a href="faq.html">FAQ</a>
+    <a href="registry.html">REGISTRY</a>
+    <a href="rsvp.html" class="nav-rsvp">RSVP</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">Memory Gallery</div>
+    <div class="star">&#10022;</div>
+    <h1>Our Favorite<br>Moments</h1>
+    <div class="hero-rule"><span></span></div>
+    <p>A growing wall of photos, notes, and favorite memories from the people we love.</p>
+  </div>
+</header>
+
+<main>
+  <section class="gallery-section">
+    <div class="section-head">
+      <div class="script">collected with love</div>
+      <p>Memories and photos will appear here alongside a few favorite moments from us.</p>
+    </div>
+
+    <div class="wall" id="gallery-wall">
+      <div class="pol pol-photo tape-l tilt-l" data-gallery-static>
+        <div class="photo" style="background-image:url('images/garden-day.jpg')">
+          <span class="photo-hint">[ golden afternoon ]</span>
+        </div>
+        <div class="caption">A sunny day together <span class="heart">♡</span></div>
+      </div>
+
+      <div class="pol pol-text tilt-r" data-gallery-static>
+        <span class="pol-heart">♡</span>
+        <p class="quote">My favorite memory is that weekend at the lake when we stayed up until sunrise talking about everything and nothing.</p>
+        <p class="sig">— Sarah J.</p>
+      </div>
+
+      <div class="pol pol-photo tape-r tilt-r" data-gallery-static>
+        <div class="photo" style="background-image:url('images/sunflower-field.jpg')">
+          <span class="photo-hint">[ sunflower field ]</span>
+        </div>
+        <div class="caption">So happy for you both! <span class="heart">♡</span></div>
+      </div>
+
+      <div class="pol pol-text tape-l tilt-l" data-gallery-static>
+        <span class="pol-heart">♡</span>
+        <p class="quote">Wishing you a lifetime of love, patience, and adventures together. You two are the best!</p>
+        <p class="sig">— Amanda K.</p>
+      </div>
+
+      <div class="pol pol-photo tape-r tilt-l" data-gallery-static>
+        <div class="photo" style="background-image:url('uploads/9D92C17F-8865-4C29-A8F3-6843364B1A6D.jpg')">
+          <span class="photo-hint">[ dressed up ]</span>
+        </div>
+        <div class="caption">Can’t wait to celebrate! <span class="heart">♡</span></div>
+      </div>
+
+      <div class="pol pol-text tilt-r" data-gallery-static>
+        <span class="pol-heart">♡</span>
+        <p class="quote">Watching you two dance in the kitchen will always be one of my favorite memories.</p>
+        <p class="sig">— Tyler R.</p>
+      </div>
+
+      <div class="pol pol-photo tape-l tilt-r" data-gallery-static>
+        <div class="photo" style="background-image:url('uploads/77EEE70C-43FD-4744-9549-A016B0824362.jpg')">
+          <span class="photo-hint">[ favorite snapshot ]</span>
+        </div>
+        <div class="caption">A favorite chapter <span class="heart">♡</span></div>
+      </div>
+
+      <div class="pol pol-photo tape-r tilt-l" data-gallery-static>
+        <div class="photo" style="background-image:url('uploads/3747692C-2FA0-4B20-9786-67F4D5D299E8.jpg')">
+          <span class="photo-hint">[ day date ]</span>
+        </div>
+        <div class="caption">More memories soon <span class="heart">♡</span></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn-ghost" href="share-memory.html">Share A Memory</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  window.SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzjRD4j5Dp5qdnVaVchh6E4WUmSepkUpL4jeOQXbmbxDoHFCCRVQfOgnPGinD9Hv1Wqeg/exec';
+
+  function escapeHtml(value){
+    return String(value || '').replace(/[&<>"']/g, function(ch){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch];
+    });
+  }
+
+  function renderMemories(memories){
+    var wall = document.getElementById('gallery-wall');
+    if (!wall || !Array.isArray(memories) || memories.length === 0) return;
+    var approvedMarkup = memories.map(function(memory, index){
+      var tilt = index % 2 ? 'tilt-r tape-r' : 'tilt-l tape-l';
+      var name = escapeHtml(memory.name || 'Guest');
+      var text = escapeHtml(memory.memory || '');
+      var song = escapeHtml(memory.song || '');
+      var image = memory.photoUrl || '';
+      if (image){
+        return '<div class="pol pol-photo ' + tilt + '">' +
+          '<div class="photo" style="background-image:url(&quot;' + escapeHtml(image) + '&quot;)"></div>' +
+          '<div class="caption">' + (text || 'A favorite memory') + ' <span class="heart">♡</span></div>' +
+          '<p class="sig">— ' + name + '</p>' +
+          (song ? '<p class="sig">Song: ' + song + '</p>' : '') +
+        '</div>';
+      }
+      return '<div class="pol pol-text ' + tilt + '">' +
+        '<span class="pol-heart">♡</span>' +
+        '<p class="quote">' + text + '</p>' +
+        '<p class="sig">— ' + name + '</p>' +
+        (song ? '<p class="sig">Song: ' + song + '</p>' : '') +
+      '</div>';
+    }).join('');
+    wall.insertAdjacentHTML('afterbegin', approvedMarkup);
+  }
+
+  function loadApprovedMemories(){
+    if (!window.SHEETS_ENDPOINT) return;
+    var script;
+    var callbackName = 'renderGalleryMemories_' + Date.now();
+    window[callbackName] = function(payload){
+      try {
+        renderMemories(payload && payload.memories);
+      } finally {
+        delete window[callbackName];
+        if (script && script.parentNode) script.parentNode.removeChild(script);
+      }
+    };
+    script = document.createElement('script');
+    script.src = window.SHEETS_ENDPOINT + '?action=memories&callback=' + encodeURIComponent(callbackName);
+    script.onerror = function(){
+      delete window[callbackName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+    document.body.appendChild(script);
+  }
+
+  loadApprovedMemories();
+</script>
+</body>
+</html>

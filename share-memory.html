@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E + G · Share A Memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italianno&family=Caveat:wght@400;500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --cocoa:#5C3520;
+    --cocoa-deep:#4A2A18;
+    --cream:#F2E8D7;
+    --cream-card:#F6EFE2;
+    --cream-soft:#EDE0CB;
+    --polaroid:#FBF6EB;
+    --ink:#3D2817;
+    --ink-soft:#7A5E47;
+    --rule:#C9B89A;
+    --sage:#6E7548;
+    --sage-deep:#5A6038;
+    --mauve:#A88283;
+    --sprig:#C9A57D;
+    --tape:rgba(201,165,125,.42);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Montserrat',ui-sans-serif,system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Cormorant Garamond',serif}
+  .script{font-family:'Italianno',cursive}
+  .hand{font-family:'Caveat',cursive}
+
+  /* ─── nav ─── */
+  .nav{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:22px 56px;background:var(--cream);
+    font-size:11px;letter-spacing:.22em;font-weight:400;
+  }
+  .nav-l, .nav-r{display:flex;align-items:center;gap:42px}
+  .nav-r{justify-content:flex-end}
+  .nav a{color:var(--ink);text-decoration:none;text-transform:uppercase}
+  .nav a:hover{color:var(--cocoa)}
+  .monogram{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:26px;letter-spacing:.08em;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .monogram .dot{width:4px;height:4px;border-radius:50%;background:var(--ink)}
+  .nav-rsvp{
+    background:var(--cocoa);color:#F2E8D7 !important;
+    padding:10px 22px;letter-spacing:.28em;
+    border-radius:2px;font-size:10.5px;
+  }
+  .nav-rsvp:hover{background:var(--cocoa-deep);color:#F2E8D7 !important}
+
+  /* ─── hero ─── */
+  .hero{
+    position:relative;height:360px;overflow:hidden;
+    background:var(--cocoa);
+    color:#F2E8D7;
+  }
+  .hero-img{
+    position:absolute;inset:0;
+    background-image:
+      radial-gradient(ellipse at 70% 30%, rgba(255,180,120,.55), transparent 45%),
+      radial-gradient(ellipse at 88% 60%, rgba(255,200,140,.35), transparent 38%),
+      radial-gradient(circle at 60% 28%, rgba(255,220,160,.9) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 65% 32%, rgba(255,220,160,.9) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 70% 28%, rgba(255,220,160,.9) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 75% 33%, rgba(255,220,160,.9) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 80% 29%, rgba(255,220,160,.9) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 85% 34%, rgba(255,220,160,.9) 0 1.5px, transparent 2px),
+      linear-gradient(180deg,#5a4530 0%,#3a2818 60%,#1e1410 100%);
+  }
+  .hero-img::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg,var(--cocoa-deep) 0%,rgba(74,42,24,.95) 22%,rgba(74,42,24,.6) 38%,rgba(74,42,24,.15) 58%,transparent 72%);
+  }
+  .hero-photo-hint{
+    position:absolute;right:36px;bottom:18px;
+    font-family:ui-monospace,Menlo,monospace;font-size:10px;
+    color:rgba(242,232,215,.5);letter-spacing:.06em;z-index:3;
+  }
+  .hero-vine{
+    position:absolute;left:30px;top:60px;
+    color:rgba(242,232,215,.45);pointer-events:none;z-index:2;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:520px;margin:0 auto 0 0;
+    padding:62px 0 0 130px;text-align:center;
+  }
+  .hero-eyebrow{
+    font-size:11px;letter-spacing:.42em;font-weight:400;
+    opacity:.92;margin-bottom:14px;
+  }
+  .hero-eyebrow-dia{
+    width:5px;height:5px;background:rgba(242,232,215,.85);
+    transform:rotate(45deg);display:inline-block;margin:6px auto 14px;
+  }
+  .hero-title{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;font-size:76px;line-height:1;
+    letter-spacing:.08em;margin:0 0 14px;
+  }
+  .hero-rule{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin:4px 0 18px;
+  }
+  .hero-rule::before, .hero-rule::after{
+    content:'';height:1px;width:60px;background:rgba(242,232,215,.55);
+  }
+  .hero-rule .dia{
+    width:6px;height:6px;background:rgba(242,232,215,.85);
+    transform:rotate(45deg);
+  }
+  .hero-msg{
+    font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;
+    margin:0;opacity:.92;line-height:1.55;font-style:italic;
+  }
+  .hero-curve{
+    position:absolute;bottom:-1px;left:0;right:0;height:55px;
+    background:var(--cream);
+    clip-path:ellipse(80% 100% at 50% 100%);
+  }
+
+  /* ─── intro script ─── */
+  .intro{
+    background:var(--cream);
+    padding:18px 56px 12px;
+    text-align:center;
+  }
+  .intro-script{
+    font-family:'Italianno',cursive;font-size:42px;
+    color:var(--cocoa);line-height:1;margin:8px 0 6px;
+  }
+  .intro-rule{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    color:var(--mauve);margin-bottom:8px;
+  }
+  .intro-rule::before, .intro-rule::after{
+    content:'';height:1px;width:48px;background:var(--rule);
+  }
+  .intro-rule .heart{font-size:14px;color:var(--mauve)}
+
+  /* ─── main grid ─── */
+  .mem-section{
+    background:var(--cream);
+    padding:28px 56px 64px;
+  }
+  .mem-grid{
+    display:grid;grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+    gap:56px;align-items:start;
+    max-width:1300px;margin:0 auto;
+  }
+
+  /* ─── form card ─── */
+  .form-card{
+    background:var(--cream-card);
+    border-radius:6px;padding:34px 36px 32px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset;
+    position:relative;
+  }
+  .form-head{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:12px;
+  }
+  .form-head .ico{color:var(--cocoa);display:flex}
+  .form-head .ttl{
+    font-size:13px;letter-spacing:.28em;font-weight:500;color:var(--ink);
+  }
+  .form-sub{
+    font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;
+    color:var(--ink-soft);line-height:1.5;margin:2px 0 26px;font-weight:400;
+  }
+
+  .field{margin-bottom:18px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .lbl{
+    display:block;font-size:10.5px;letter-spacing:.22em;
+    font-weight:500;color:var(--ink);margin-bottom:7px;text-transform:uppercase;
+  }
+  .lbl-soft{color:var(--ink-soft)}
+  .input, .textarea{
+    width:100%;background:var(--polaroid);
+    border:1px solid #E2D2B4;border-radius:3px;
+    padding:11px 14px;font-family:'Cormorant Garamond',serif;
+    font-size:15px;color:var(--ink);font-style:italic;
+    outline:none;transition:border-color .15s;
+  }
+  .input::placeholder, .textarea::placeholder{
+    color:#B5A283;font-style:italic;
+  }
+  .input:focus, .textarea:focus{border-color:var(--sage)}
+  .textarea{resize:vertical;min-height:120px;line-height:1.55}
+
+  /* file drop */
+  .drop{
+    border:1.5px dashed #C8B58E;background:transparent;
+    border-radius:3px;padding:14px 14px;
+    display:flex;align-items:center;gap:12px;
+    cursor:pointer;transition:border-color .15s,background .15s;
+    min-height:60px;
+  }
+  .drop:hover{border-color:var(--sage);background:rgba(110,117,72,.04)}
+  .drop.is-over{border-color:var(--sage);background:rgba(110,117,72,.08)}
+  .drop-ico{
+    width:38px;height:30px;border:1px solid var(--ink-soft);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-soft);
+    flex-shrink:0;
+  }
+  .drop-txt{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:14px;color:var(--ink-soft);line-height:1.35;
+  }
+  .drop input[type=file]{display:none}
+  .drop-thumb{
+    width:46px;height:46px;border-radius:3px;background:var(--cream-soft);
+    background-size:cover;background-position:center;flex-shrink:0;
+    border:1px solid #E2D2B4;
+  }
+
+  .submit-row{
+    display:flex;justify-content:center;margin-top:26px;
+  }
+  .btn-submit{
+    background:var(--sage);color:#F4EFE0;border:0;
+    padding:14px 38px;border-radius:3px;cursor:pointer;
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
+    letter-spacing:.32em;text-transform:uppercase;
+    transition:background .15s, transform .1s;
+  }
+  .btn-submit:hover{background:var(--sage-deep)}
+  .btn-submit:active{transform:translateY(1px)}
+  .btn-submit:disabled{opacity:.62;cursor:not-allowed}
+  .form-status{
+    margin-top:14px;text-align:center;min-height:20px;
+    font-family:'Cormorant Garamond',serif;font-size:15px;
+    font-style:italic;color:var(--ink-soft);line-height:1.45;
+  }
+  .form-status.is-error{color:#7B3F1D}
+  .form-sprig{
+    display:flex;justify-content:center;margin-top:14px;color:var(--sprig);
+  }
+
+  /* ─── memory wall ─── */
+  .wall-head{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin-bottom:32px;
+  }
+  .wall-head .dia{
+    width:6px;height:6px;background:var(--cocoa);transform:rotate(45deg);
+  }
+  .wall-ttl{
+    font-size:12px;letter-spacing:.32em;font-weight:500;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .wall{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:28px 22px;
+  }
+
+  /* polaroid */
+  .pol{
+    background:var(--polaroid);
+    padding:18px 18px 14px;
+    box-shadow:0 12px 24px -16px rgba(74,42,24,.35),
+               0 2px 6px rgba(74,42,24,.08);
+    position:relative;
+    transition:transform .25s ease;
+  }
+  .pol::before{
+    content:'';position:absolute;left:50%;top:-10px;
+    width:74px;height:20px;transform:translateX(-50%) rotate(-2deg);
+    background:var(--tape);
+    box-shadow:0 1px 2px rgba(74,42,24,.08);
+  }
+  .pol.tape-r::before{transform:translateX(-50%) rotate(4deg);left:62%}
+  .pol.tape-l::before{transform:translateX(-50%) rotate(-5deg);left:38%}
+  .pol.tilt-l{transform:rotate(-1.4deg)}
+  .pol.tilt-r{transform:rotate(1.6deg)}
+  .pol:hover{transform:rotate(0) translateY(-3px)}
+  .pol-heart{
+    position:absolute;top:10px;left:14px;
+    color:var(--mauve);font-size:12px;opacity:.7;
+  }
+
+  /* text-memory polaroid */
+  .pol-text{
+    min-height:230px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:34px 22px 22px;
+  }
+  .pol-text .quote{
+    font-family:'Cormorant Garamond',serif;font-size:15px;
+    color:var(--ink);line-height:1.55;font-style:italic;font-weight:400;
+  }
+  .pol-text .sig{
+    font-family:'Cormorant Garamond',serif;font-size:13.5px;
+    color:var(--ink-soft);margin-top:14px;font-style:italic;
+  }
+  .pol-text .sprig-r{
+    position:absolute;right:8px;bottom:6px;color:var(--sprig);opacity:.75;
+  }
+
+  /* photo polaroid */
+  .pol-photo{padding:14px 14px 10px}
+  .pol-photo .photo{
+    width:100%;aspect-ratio:1/1;background:var(--cream-soft);
+    background-size:cover;background-position:center;
+    margin-bottom:10px;position:relative;overflow:hidden;
+  }
+  .pol-photo .photo.ph-1{
+    background-image:
+      radial-gradient(ellipse at 50% 70%, rgba(255,200,150,.6), transparent 60%),
+      linear-gradient(180deg,#4a3522 0%,#7a5b38 55%,#c9a57d 100%);
+  }
+  .pol-photo .photo.ph-2{
+    background-image:
+      radial-gradient(ellipse at 50% 80%, rgba(255,220,170,.5), transparent 55%),
+      linear-gradient(180deg,#3a4a2e 0%,#6b7a4a 55%,#c9b08a 100%);
+  }
+  .pol-photo .photo.ph-3{
+    background-image:
+      radial-gradient(ellipse at 30% 60%, rgba(255,210,160,.55), transparent 55%),
+      linear-gradient(180deg,#4a3a28 0%,#8a6b48 60%,#d9b58a 100%);
+  }
+  .pol-photo .photo-hint{
+    position:absolute;left:8px;bottom:8px;
+    font-family:ui-monospace,Menlo,monospace;font-size:9px;
+    color:rgba(255,240,220,.55);letter-spacing:.06em;
+  }
+  .pol-photo .caption{
+    font-family:'Caveat',cursive;font-size:18px;color:var(--cocoa);
+    text-align:center;line-height:1.1;padding:2px 4px 2px;
+  }
+  .pol-photo .caption .heart{color:var(--mauve);font-size:13px;margin-left:4px}
+  .wall-empty{
+    grid-column:1/-1;text-align:center;padding:48px 20px;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:var(--ink-soft);font-size:17px;
+  }
+
+  .view-more-row{
+    display:flex;justify-content:center;margin-top:42px;
+  }
+  .btn-ghost{
+    display:inline-block;padding:12px 30px;background:transparent;
+    border:1px solid var(--ink);color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;
+    letter-spacing:.32em;text-transform:uppercase;cursor:pointer;
+    transition:background .15s,color .15s;
+  }
+  .btn-ghost:hover{background:var(--ink);color:var(--cream)}
+
+  /* ─── footer ─── */
+  .ft-cocoa{
+    background:var(--cocoa-deep);color:#E9D9BD;
+    padding:34px 56px 24px;
+  }
+  .ft-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:24px;
+    max-width:1300px;margin:0 auto;
+  }
+  .ft-pill{text-align:center}
+  .ft-pill-ico{
+    display:flex;justify-content:center;margin-bottom:8px;color:#D9B98B;
+  }
+  .ft-pill-lbl{
+    font-size:10.5px;letter-spacing:.28em;font-weight:500;
+    color:#D9B98B;margin-bottom:6px;
+  }
+  .ft-pill-l1, .ft-pill-l2{
+    font-family:'Cormorant Garamond',serif;font-size:14px;
+    color:#E9D9BD;line-height:1.45;font-weight:400;
+  }
+  .ft-loc{
+    margin-top:30px;padding-top:18px;
+    display:flex;justify-content:center;align-items:center;gap:18px;
+    font-size:10.5px;letter-spacing:.42em;color:#C9A57D;
+  }
+  .ft-loc::before, .ft-loc::after{
+    content:'';height:1px;width:90px;background:#7A4A30;
+  }
+  .ft-loc .dia{width:5px;height:5px;background:#C9A57D;transform:rotate(45deg)}
+
+  @media (max-width:1100px){
+    .nav{padding:18px 26px;font-size:10px;letter-spacing:.18em}
+    .nav-l, .nav-r{gap:24px}
+    .mem-grid{grid-template-columns:1fr;gap:40px}
+    .wall{grid-template-columns:repeat(2,1fr)}
+    .ft-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:720px){
+    .nav{
+      grid-template-columns:1fr;
+      justify-items:center;
+      row-gap:9px;
+      padding:12px 14px 14px;
+      font-size:9px;
+      letter-spacing:.16em;
+    }
+    .nav .monogram{grid-row:1;font-size:24px}
+    .nav-l, .nav-r{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px 17px;
+    }
+    .nav-l{grid-row:2}
+    .nav-r{grid-row:3}
+    .nav a{white-space:nowrap}
+    .nav-rsvp{
+      padding:8px 15px;
+      font-size:9px;
+      letter-spacing:.2em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────── NAV ───────── -->
+<nav class="nav">
+  <div class="nav-l">
+    <a href="Wedding Landing.html">HOME</a>
+    <a href="our-story.html">OUR STORY</a>
+    <a href="the-day.html">THE DAY</a>
+  </div>
+  <div class="monogram"><span>E</span><span class="dot"></span><span>G</span></div>
+  <div class="nav-r">
+    <a href="share-memory.html">SHARE A MEMORY</a>
+    <a href="faq.html">FAQ</a>
+    <a href="registry.html">REGISTRY</a>
+    <a href="rsvp.html" class="nav-rsvp">RSVP</a>
+  </div>
+</nav>
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero-img"></div>
+  <div class="hero-photo-hint">[ hero photo — barn at sunset with string lights ]</div>
+  <svg class="hero-vine" width="160" height="240" viewBox="0 0 160 240" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <path d="M40 10 Q 50 80, 35 150 Q 25 200, 60 230" stroke-linecap="round"/>
+    <path d="M40 40 Q 60 38, 70 28" stroke-linecap="round"/>
+    <path d="M42 70 Q 22 70, 12 60" stroke-linecap="round"/>
+    <path d="M38 100 Q 58 100, 70 88" stroke-linecap="round"/>
+    <path d="M36 135 Q 16 138, 8 128" stroke-linecap="round"/>
+    <path d="M30 170 Q 52 172, 64 162" stroke-linecap="round"/>
+    <ellipse cx="70" cy="30" rx="6" ry="3" transform="rotate(-30 70 30)"/>
+    <ellipse cx="12" cy="62" rx="6" ry="3" transform="rotate(30 12 62)"/>
+    <ellipse cx="70" cy="90" rx="6" ry="3" transform="rotate(-30 70 90)"/>
+    <ellipse cx="8" cy="130" rx="6" ry="3" transform="rotate(30 8 130)"/>
+    <ellipse cx="64" cy="164" rx="6" ry="3" transform="rotate(-30 64 164)"/>
+    <circle cx="40" cy="12" r="3"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-eyebrow">SHARE A</div>
+    <div class="hero-eyebrow-dia"></div>
+    <h1 class="hero-title">MEMORY</h1>
+    <div class="hero-rule"><div class="dia"></div></div>
+    <p class="hero-msg">
+      We'd love to hear your favorite memories,<br/>
+      words of wisdom, or well-wishes<br/>
+      as we start this new chapter.
+    </p>
+  </div>
+  <div class="hero-curve"></div>
+</section>
+
+<!-- ───────── INTRO ───────── -->
+<section class="intro">
+  <div class="intro-script">Your words will mean the world to us</div>
+  <div class="intro-rule"><span class="heart">♡</span></div>
+</section>
+
+<!-- ───────── MAIN ───────── -->
+<section class="mem-section">
+  <div class="mem-grid">
+
+    <!-- ─── LEFT: form ─── -->
+    <div class="form-card">
+      <div class="form-head">
+        <div class="ico">
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M11 18 C 4 14, 1 10, 1 6 Q 1 2, 5 2 Q 8 2, 11 6 Q 14 2, 17 2 Q 21 2, 21 6 C 21 10, 18 14, 11 18 Z"/>
+          </svg>
+        </div>
+        <div class="ttl">LEAVE A MEMORY</div>
+      </div>
+      <p class="form-sub">
+        Share a favorite memory, offer some advice,<br/>
+        or leave a note for the couple.
+      </p>
+
+      <form id="mem-form" onsubmit="event.preventDefault(); submitMem();">
+        <div class="field">
+          <label class="lbl" for="m-name">YOUR NAME</label>
+          <input id="m-name" class="input" type="text" placeholder="Enter your name" />
+        </div>
+
+        <div class="field">
+          <label class="lbl" for="m-note">YOUR MEMORY OR NOTE</label>
+          <textarea id="m-note" class="textarea" placeholder="Write your memory, note, or words of wisdom..."></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="lbl">ADD A PHOTO <span class="lbl-soft">(OPTIONAL)</span></label>
+            <label class="drop" id="m-drop" for="m-file">
+              <div class="drop-ico" id="m-drop-ico">
+                <svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.2">
+                  <rect x="1" y="1" width="20" height="16" rx="1"/>
+                  <circle cx="7" cy="7" r="2"/>
+                  <path d="M1 13 L 7 9 L 12 13 L 16 10 L 21 14"/>
+                </svg>
+              </div>
+              <div class="drop-txt" id="m-drop-txt">
+                Upload a photo<br/>or drag and drop
+              </div>
+              <input id="m-file" type="file" accept="image/*" />
+            </label>
+          </div>
+          <div class="field">
+            <label class="lbl" for="m-song">SONG RECOMMENDATION <span class="lbl-soft">(OPTIONAL)</span></label>
+            <input id="m-song" class="input" type="text" placeholder="Song title and artist" />
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button class="btn-submit" id="mem-submit" type="submit">SUBMIT MEMORY</button>
+        </div>
+        <div class="form-status" id="mem-status" role="status" aria-live="polite"></div>
+
+        <div class="form-sprig">
+          <svg width="110" height="14" viewBox="0 0 110 14" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <path d="M55 13 Q 55 4, 30 2" stroke-linecap="round"/>
+            <path d="M55 13 Q 55 4, 80 2" stroke-linecap="round"/>
+            <ellipse cx="42" cy="4" rx="4" ry="2" transform="rotate(-20 42 4)"/>
+            <ellipse cx="68" cy="4" rx="4" ry="2" transform="rotate(20 68 4)"/>
+            <ellipse cx="30" cy="2" rx="3" ry="1.5" transform="rotate(-30 30 2)"/>
+            <ellipse cx="80" cy="2" rx="3" ry="1.5" transform="rotate(30 80 2)"/>
+          </svg>
+        </div>
+      </form>
+    </div>
+
+    <!-- ─── RIGHT: memory wall ─── -->
+    <div>
+      <div class="wall-head">
+        <div class="dia"></div>
+        <div class="wall-ttl">MEMORIES FROM OUR FAVORITE PEOPLE</div>
+        <div class="dia"></div>
+      </div>
+
+      <div class="wall" id="memory-wall">
+
+        <!-- 1 · text -->
+        <div class="pol pol-text tilt-l" data-sample-memory>
+          <span class="pol-heart">♡</span>
+          <p class="quote">
+            My favorite memory is that weekend at the lake when we stayed up until sunrise talking about everything and nothing.
+          </p>
+          <p class="sig">— Sarah J.</p>
+        </div>
+
+        <!-- 2 · photo -->
+        <div class="pol pol-photo tape-r tilt-r" data-sample-memory>
+          <div class="photo ph-1">
+            <div class="photo-hint">[ couple photo ]</div>
+          </div>
+          <div class="caption">So happy for you both! <span class="heart">♡</span></div>
+        </div>
+
+        <!-- 3 · text -->
+        <div class="pol pol-text tape-l tilt-r" data-sample-memory>
+          <span class="pol-heart">♡</span>
+          <p class="quote">
+            Watching you two dance in the kitchen at Friendsgiving will always be one of my favorite memories.
+          </p>
+          <p class="sig">— Tyler R.</p>
+          <svg class="sprig-r" width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M4 20 Q 18 12, 36 6" stroke-linecap="round"/>
+            <ellipse cx="14" cy="14" rx="3" ry="1.5" transform="rotate(-20 14 14)"/>
+            <ellipse cx="26" cy="9" rx="3" ry="1.5" transform="rotate(-20 26 9)"/>
+          </svg>
+        </div>
+
+        <!-- 4 · photo -->
+        <div class="pol pol-photo tape-l tilt-l" data-sample-memory>
+          <div class="photo ph-2">
+            <div class="photo-hint">[ lake at golden hour ]</div>
+          </div>
+          <div class="caption"><span class="heart">♡</span></div>
+        </div>
+
+        <!-- 5 · text -->
+        <div class="pol pol-text tilt-l" data-sample-memory>
+          <span class="pol-heart">♡</span>
+          <p class="quote">
+            Wishing you a lifetime of love, patience, and adventures together. You two are the best!
+          </p>
+          <p class="sig">— Amanda K.</p>
+        </div>
+
+        <!-- 6 · photo -->
+        <div class="pol pol-photo tape-r tilt-r" data-sample-memory>
+          <div class="photo ph-3">
+            <div class="photo-hint">[ field walk ]</div>
+          </div>
+          <div class="caption">Can't wait to celebrate! <span class="heart">♡</span></div>
+        </div>
+
+      </div>
+
+      <div class="view-more-row">
+        <a class="btn-ghost" href="gallery.html">VIEW MORE MEMORIES</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ───────── FOOTER ───────── -->
+<footer class="ft-cocoa">
+  <div class="ft-grid">
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M8 4 Q 11 1, 14 4 L 14 8 Q 18 9, 19 14 L 21 25 L 1 25 L 3 14 Q 4 9, 8 8 Z"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">DRESS CODE</div>
+      <div class="ft-pill-l1">Garden Formal</div>
+      <div class="ft-pill-l2">Boots Welcome</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="24" height="22" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M12 20 Q 4 14, 4 8 Q 4 3, 9 3 Q 12 3, 12 7 Q 12 3, 15 3 Q 20 3, 20 8 Q 20 14, 12 20 Z"/>
+          <path d="M12 20 L 12 4"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">CEREMONY</div>
+      <div class="ft-pill-l1">Outdoors</div>
+      <div class="ft-pill-l2">Weather Permitting</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M3 13 L 5 6 Q 6 4, 8 4 L 20 4 Q 22 4, 23 6 L 25 13 L 25 17 L 22 17 L 22 15 L 6 15 L 6 17 L 3 17 Z"/>
+          <circle cx="8" cy="15" r="2"/><circle cx="20" cy="15" r="2"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">PARKING</div>
+      <div class="ft-pill-l1">On-site parking</div>
+      <div class="ft-pill-l2">
+</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M6 2 L 6 9 Q 6 13, 11 13 Q 16 13, 16 9 L 16 2"/>
+          <path d="M11 13 L 11 20"/><path d="M7 20 L 15 20"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">RECEPTION</div>
+      <div class="ft-pill-l1">Reception in the Barn</div>
+      <div class="ft-pill-l2">Dinner &amp; Dancing</div>
+    </div>
+    <div class="ft-pill">
+      <div class="ft-pill-ico">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2 L 12 5 M12 19 L 12 22 M2 12 L 5 12 M19 12 L 22 12
+                   M4.5 4.5 L 6.5 6.5 M17.5 17.5 L 19.5 19.5
+                   M4.5 19.5 L 6.5 17.5 M17.5 6.5 L 19.5 4.5"/>
+        </svg>
+      </div>
+      <div class="ft-pill-lbl">WEATHER NOTE</div>
+      <div class="ft-pill-l1">October in Georgia</div>
+      <div class="ft-pill-l2">can be cool in the evening</div>
+    </div>
+  </div>
+  <div class="ft-loc">
+    <span>FAYETTEVILLE</span>
+    <div class="dia"></div>
+    <span>GEORGIA</span>
+  </div>
+</footer>
+
+<!-- ───────── BEHAVIOR (UI only — wire to backend later) ───────── -->
+<script>
+  // Photo upload preview + drag-drop visuals
+  (function(){
+    var drop = document.getElementById('m-drop');
+    var file = document.getElementById('m-file');
+    var txt  = document.getElementById('m-drop-txt');
+    var ico  = document.getElementById('m-drop-ico');
+    if (!drop || !file) return;
+
+    function show(f){
+      if (!f) return;
+      var rd = new FileReader();
+      rd.onload = function(e){
+        ico.style.backgroundImage = 'url("' + e.target.result + '")';
+        ico.style.backgroundSize = 'cover';
+        ico.style.backgroundPosition = 'center';
+        ico.innerHTML = '';
+        ico.style.border = '1px solid #C9B89A';
+        txt.innerHTML = '<em>' + (f.name.length > 22 ? f.name.slice(0,20) + '…' : f.name) + '</em><br/><span style="font-size:11px;letter-spacing:.18em;">REPLACE</span>';
+      };
+      rd.readAsDataURL(f);
+    }
+
+    file.addEventListener('change', function(){ show(file.files && file.files[0]); });
+
+    ['dragenter','dragover'].forEach(function(ev){
+      drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('is-over'); });
+    });
+    ['dragleave','drop'].forEach(function(ev){
+      drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('is-over'); });
+    });
+    drop.addEventListener('drop', function(e){
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f){ file.files = e.dataTransfer.files; show(f); }
+    });
+  })();
+
+  // No backend yet — just acknowledge.
+  window.SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzjRD4j5Dp5qdnVaVchh6E4WUmSepkUpL4jeOQXbmbxDoHFCCRVQfOgnPGinD9Hv1Wqeg/exec';
+
+  function setMemStatus(message, isError){
+    var status = document.getElementById('mem-status');
+    if (!status) return;
+    status.textContent = message || '';
+    status.classList.toggle('is-error', !!isError);
+  }
+
+  function resizeImage(file){
+    return new Promise(function(resolve, reject){
+      if (!file) { resolve(null); return; }
+      var reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = function(event){
+        var img = new Image();
+        img.onerror = reject;
+        img.onload = function(){
+          var maxSide = 900;
+          var scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+          var canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+          var dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+          resolve({
+            name: file.name.replace(/\.[^.]+$/, '') + '.jpg',
+            type: 'image/jpeg',
+            data: dataUrl.split(',')[1]
+          });
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function submitMem(){
+    var name = (document.getElementById('m-name').value || '').trim();
+    var note = (document.getElementById('m-note').value || '').trim();
+    var song = (document.getElementById('m-song').value || '').trim();
+    var fileInput = document.getElementById('m-file');
+    var submit = document.getElementById('mem-submit');
+    if (!name || !note){
+      setMemStatus('Please share your name and a memory before submitting.', true);
+      return;
+    }
+    if (!window.SHEETS_ENDPOINT){
+      setMemStatus('Memory endpoint is missing. Add your Apps Script /exec URL.', true);
+      return;
+    }
+
+    submit.disabled = true;
+    setMemStatus('Sending your memory...');
+
+    try {
+      var photo = await resizeImage(fileInput.files && fileInput.files[0]);
+      var body = new URLSearchParams();
+      body.append('action', 'memory');
+      body.append('name', name);
+      body.append('memory', note);
+      body.append('song', song);
+      body.append('userAgent', navigator.userAgent);
+      if (photo){
+        body.append('photoName', photo.name);
+        body.append('photoType', photo.type);
+        body.append('photoBase64', photo.data);
+      }
+      await fetch(window.SHEETS_ENDPOINT, { method: 'POST', mode: 'no-cors', body: body });
+      setMemStatus('Thank you, ' + name.split(' ')[0] + '! Your memory is waiting for approval.');
+      document.getElementById('mem-form').reset();
+      resetPhotoDrop();
+    } catch (err) {
+      setMemStatus('Something went wrong. Please try again in a minute.', true);
+    } finally {
+      submit.disabled = false;
+    }
+  }
+
+  function resetPhotoDrop(){
+    var txt = document.getElementById('m-drop-txt');
+    var ico = document.getElementById('m-drop-ico');
+    if (!txt || !ico) return;
+    txt.innerHTML = 'Upload a photo<br/>or drag and drop';
+    ico.style.backgroundImage = '';
+    ico.style.backgroundSize = '';
+    ico.style.backgroundPosition = '';
+    ico.style.border = '1px solid #C9B89A';
+    ico.innerHTML = '<svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="1" width="20" height="16" rx="1"/><circle cx="7" cy="7" r="2"/><path d="M1 13 L 7 9 L 12 13 L 16 10 L 21 14"/></svg>';
+  }
+
+  function escapeHtml(value){
+    return String(value || '').replace(/[&<>"']/g, function(ch){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch];
+    });
+  }
+
+  function renderMemories(memories){
+    var wall = document.getElementById('memory-wall');
+    if (!wall || !Array.isArray(memories) || memories.length === 0) return;
+    wall.innerHTML = memories.map(function(memory, index){
+      var tilt = index % 2 ? 'tilt-r tape-r' : 'tilt-l tape-l';
+      var name = escapeHtml(memory.name || 'Guest');
+      var text = escapeHtml(memory.memory || '');
+      var song = escapeHtml(memory.song || '');
+      var image = memory.photoUrl || '';
+      if (image){
+        return '<div class="pol pol-photo ' + tilt + '">' +
+          '<div class="photo" style="background-image:url(&quot;' + escapeHtml(image) + '&quot;)"></div>' +
+          '<div class="caption">' + (text || 'A favorite memory') + ' <span class="heart">♡</span></div>' +
+          '<p class="sig">— ' + name + '</p>' +
+          (song ? '<p class="sig">Song: ' + song + '</p>' : '') +
+        '</div>';
+      }
+      return '<div class="pol pol-text ' + tilt + '">' +
+        '<span class="pol-heart">♡</span>' +
+        '<p class="quote">' + text + '</p>' +
+        '<p class="sig">— ' + name + '</p>' +
+        (song ? '<p class="sig">Song: ' + song + '</p>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  function loadApprovedMemories(){
+    if (!window.SHEETS_ENDPOINT) return;
+    var script;
+    var callbackName = 'renderApprovedMemories_' + Date.now();
+    window[callbackName] = function(payload){
+      try {
+        renderMemories(payload && payload.memories);
+      } finally {
+        delete window[callbackName];
+        if (script && script.parentNode) script.parentNode.removeChild(script);
+      }
+    };
+    script = document.createElement('script');
+    script.src = window.SHEETS_ENDPOINT + '?action=memories&callback=' + encodeURIComponent(callbackName);
+    script.onerror = function(){
+      delete window[callbackName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+    document.body.appendChild(script);
+  }
+
+  loadApprovedMemories();
+</script>
+
+</body>
+</html>
