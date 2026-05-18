@@ -376,7 +376,7 @@
         (song ? '<p class="sig">Song: ' + song + '</p>' : '') +
       '</div>';
     }).join('');
-    wall.insertAdjacentHTML('afterbegin', approvedMarkup);
+    wall.innerHTML = approvedMarkup;
   }
 
   function loadApprovedMemories(){
